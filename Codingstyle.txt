@@ -1,0 +1,34 @@
+funktionstyp funktionInCamelCase(parameter, parameter)
+{
+	Funktionsinhalt
+}
+
+
+if (Bedingung)
+{
+	...
+} 
+else if (Bedingung) 
+{
+	...
+}
+else
+{
+	...
+}
+
+
+for (...)
+{
+	...
+}
+
+variablen_in_snake_case
+Der Variablenname beschreibt, was die Variable darstellt. Keine Abkürzungen. 
+
+Funktionsnamen beschreiben, was die Funktion macht. Wenn man einen Wert holt, heißt die Funktion getWert()
+
+Kommentare sind /* Kommentar */
+Kommentare zu einzelnen Zeilen fangen eine Leertaste hinter der Zeile an. Kommentare zu Funktionen sind direkt über der Funktionsdeklaration
+
+Wir sollten bei einer Sprache bleiben, basierend auf meiner und deiner Datei wirds Deutsch. 

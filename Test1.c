@@ -4,41 +4,56 @@
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
+struct Uhrzeit;
+
+int Uhrzeit();
+void uhrzeitAusgeben(struct Uhrzeit);
+void delay(unsigned int);
 
 
-struct Uhrzeit {
+struct Uhrzeit 
+{
     int stunde;
     int minute;
 };
 
-void Uhrzeit(){
-// wait
-//min & stu -> eigene funktion
-    int i;
-struct Uhrzeit t1 = {8, 0};
-    for (i = 0; ; i++) {
-        // Delay 5 sekunden für 1 min
-        delay(5000);
-        struct t.minute++;
-        printf("%d seconds have passed\n", i + 1);
-        if(t.minute = 60){
-        t.minute = 0; //stunde vergeht
-        t.stunde++;
-        }
-    }
+void delay(unsigned int milliseconds) 
+{
+    clock_t start_time = clock();
+    while (clock() < start_time + milliseconds);
+    return;
 }
 
-void uhrzeitAusgeben(struct Uhrzeit t) {
+struct Uhrzeit getUhrzeit()
+{
+	// wait
+	//min & stu -> eigene funktion
+    int i;
+	struct Uhrzeit t1 = {8, 0};
+    for (i = 0; ; i++) 
+	{
+        delay(5000); // Delay 5 sekunden fÃ¼r 1 min
+        t1.minute++;
+        printf("%d seconds have passed\n", i + 1);
+        
+		if(t1.minute = 60)
+		{
+        t1.minute = 0; //stunde vergeht
+        t1.stunde++;
+        }
+    }
+    return t1;
+}
+
+void uhrzeitAusgeben(struct Uhrzeit t) 
+{
     printf("Uhrzeit: %d:%d\n", t.stunde, t.minute);//Ausgabe form
 }
 
- void delay(unsigned int milliseconds) {
-    clock_t start_time = clock();
-    while (clock() < start_time + milliseconds);
-}
-
-int main(void) {
-	void Uhrzeit();
+int main(void)
+{
+	struct Uhrzeit zeit;
+	zeit = getUhrzeit();
 	
 	int B1, B2, R1, R2, S1;//Pisten
 	int w1, w2, w3 , w4;//Warteschlangen
@@ -46,7 +61,7 @@ int main(void) {
 	int Bi;//Bistro
 	int ges, Kat, TKat, Ski, Pak, Hal; // Menu Counters
 	
-	B1 = 0;
+	B1 = 0;	/* Die Variablen hier umbenennen! Es ist besser mehr zu schreiben. als keine Ahnung zu haben, was die Variablen eigentlich machen, weil man AbkÃ¼rzungen als Name gewÃ¤hlt hat */
 	B2 = 0;
 	R1 = 0;
 	R2 = 0;
@@ -82,36 +97,36 @@ int main(void) {
 	printf("                                    \\        \\       /\n");
 	printf("                                     \\       /      /\n");
 	printf("                                     ----Talstation--               Lift auf:  %d\n", w4);
-	//Bestimmte stings anwenden in zeilen mit verändenden zahlen die verschiedene anzahl an Leerzeichen ausgibt zb. 1 bei 1000+, 2 bei 100+, 3 bei 10+ usw.
-	//oder anzeige im menü
-		printf("\n                  ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»                ");
-	printf("\n  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄº                                          ºÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿");
-	printf("\n  ³               º      %sbersicht %sber den Berg             º              ³", "\x9a", "\x81");
-	printf("\n  ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄº                   Uhrzeit: %d:%d         ºÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´", uhrzeitAusgeben(t1););
-	printf("\n  ³               ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼               ³");
-	printf("\n  ³                    ³           Allgemeine Zahlen:                        ³");
-	printf("\n  ³                    ³          Personen auf Berg:  %d                     ³", ges);
-	printf("\n  ³                    ³          10er-Karten:  %d                           ³", Kat);
-	printf("\n  ³                    ³          Tageskarten: %d                            ³", TKat);
-	printf("\n  ³                    ³          Skifahrten:   %d                           ³", Ski);
-	printf("\n  ³                    ³          Parkende Wagen:  %d Auto                   ³", Pak);
-	printf("\n  ³                    ³          Busse an diesem Tag:  %d                   ³", Hal);
-	printf("\n  ³                    ³                                                     ³");
-	printf("\n  ³                    ³          Mögliche Eingaben:                         ³");
-	printf("\n  ³                    ³          (T)urbo                                    ³");
-	printf("\n  ³                    ³          (P)ause                                    ³");
-	printf("\n  ³                    ³          (0)  Programmende                          ³");
-	printf("\n  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ");
-//Counter für zu fuß , bis zu 60 aus schneedorf, mit auto1-5 max 50 autos, bus im tackt mit bis zu 50 leuten pro bus
+	//Bestimmte stings anwenden in zeilen mit verÃ¤ndenden zahlen die verschiedene anzahl an Leerzeichen ausgibt zb. 1 bei 1000+, 2 bei 100+, 3 bei 10+ usw.
+	//oder anzeige im menÃ¼
+	printf("\n                  Ã‰ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÂ»                ");
+	printf("\n  ÃšÃ„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Âº                                          ÂºÃ„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Â¿");
+	printf("\n  Â³               Âº      %sbersicht %sber den Berg             Âº              Â³", "\x9a", "\x81");
+	uhrzeitAusgeben(zeit);
+	printf("\n  Â³               ÃˆÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÂ¼               Â³");
+	printf("\n  Â³                    Â³           Allgemeine Zahlen:                        Â³");
+	printf("\n  Â³                    Â³          Personen auf Berg:  %d                     Â³", ges);
+	printf("\n  Â³                    Â³          10er-Karten:  %d                           Â³", Kat);
+	printf("\n  Â³                    Â³          Tageskarten: %d                            Â³", TKat);
+	printf("\n  Â³                    Â³          Skifahrten:   %d                           Â³", Ski);
+	printf("\n  Â³                    Â³          Parkende Wagen:  %d Auto                   Â³", Pak);
+	printf("\n  Â³                    Â³          Busse an diesem Tag:  %d                   Â³", Hal);
+	printf("\n  Â³                    Â³                                                     Â³");
+	printf("\n  Â³                    Â³          MÃ¶gliche Eingaben:                         Â³");
+	printf("\n  Â³                    Â³          (T)urbo                                    Â³");
+	printf("\n  Â³                    Â³          (P)ause                                    Â³");
+	printf("\n  Â³                    Â³          (0)  Programmende                          Â³");
+	printf("\n  Ã€Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„ÃÃ„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã™");
+//Counter fÃ¼r zu fuÃŸ , bis zu 60 aus schneedorf, mit auto1-5 max 50 autos, bus im tackt mit bis zu 50 leuten pro bus
 	/*
-Per string einfügen
-ä \x84
-ö \x94
-ü \x81
-Ä \x8e
-Ö \x99
-Ü \x9a
-ß \xe1
+Per string einfÃ¼gen
+Ã¤ \x84
+Ã¶ \x94
+Ã¼ \x81
+Ã„ \x8e
+Ã– \x99
+Ãœ \x9a
+ÃŸ \xe1
 	*/
-
+	return 0;
 }
