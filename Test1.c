@@ -30,9 +30,9 @@ struct Uhrzeit getUhrzeit()
 	//min & stu -> eigene funktion
     int i;
 	struct Uhrzeit t1 = {8, 0};
-    for (i = 0; ; i++) 
+    for (i = 0; i<=10 ; i++) 
 	{
-        delay(5000); // Delay 5 sekunden für 1 min
+        delay(1000); // Delay 5 sekunden für 1 min 
         t1.minute++;
         printf("%d seconds have passed\n", i + 1);
         

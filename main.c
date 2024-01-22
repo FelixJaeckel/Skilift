@@ -2,21 +2,38 @@
 #include <stdlib.h>
 #include <windows.h>
 
-int gotoxy(HANDLE, unsigned short, unsigned short);
+struct Uhrzeit;
+
+int cursorSetzen(HANDLE, unsigned short, unsigned short);
+void getUhrzeit(int);
+void uhrzeitAusgeben(Uhrzeit);
+
+typedef struct Uhrzeit 
+{
+    int stunde;
+    int minute;
+} Uhrzeit;
+
+Uhrzeit uhrzeit;
+
 
 int main(int argc, char *argv[]) {
 	
-	int zehnerkarten, bergstation_lift, tageskarten;
+	int zehnerkarten, bergstation_lift, tageskarten, minuten;
 	
-	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); /* wird fuer gotoxy() benoetigt */
+	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); /* wird fuer cursorSetzen() benoetigt */
+	
+	minuten = 540;
+	uhrzeit.stunde = 9;
+	uhrzeit.minute = 0;
 	
 	zehnerkarten = 15;
 	bergstation_lift = 2;
 	tageskarten = 51;
 	
-	while(1)
+	while(minuten <= 1320)
 	{
-		printf("10er-Karten:  %i                                   ___Bergstation    Lift ab:  %i\n"
+		printf( "10er-Karten:  %i                                   ___Bergstation    Lift ab:  %i\n"
 				"Tageskarten:  %i                                  /        |    |\n"
 				"Skifahrten:   77                                 /        /     |\n"
 				"                                                -        /      |\n"
@@ -33,25 +50,62 @@ int main(int argc, char *argv[]) {
 				"                                   \\        \\        /\n"
 				"                                    \\       /       /\n"
 				"                                     ----Talstation--               Lift auf:  2\n"
-				"10:12 Uhr                               (H):  0\n"
-				"Personen auf Berg:  83                  [P]:  1 Auto\n"
+				"  :   Uhr                               (H):  0\n"
+			   	"Personen auf Berg:  83                  [P]:  1 Auto\n"
 				"...(T)urbo\n"
 				"...(P)ause"                                                
 				, zehnerkarten, bergstation_lift, tageskarten);
 		
+		uhrzeitAusgeben(uhrzeit);
 		
 		zehnerkarten++;
 		bergstation_lift++;
 		tageskarten++;
-		gotoxy(hStdout, 0,0); /* setzt Cursor an den Anfang */
-		Sleep(1200);
-	}
+		
+		cursorSetzen(hStdout, 0, 0); /* setzt Cursor an den Anfang */
+		Sleep(1000);
+		minuten++;
+		getUhrzeit(minuten);
+	} 
 	
 	return 0;
 }
 
-/* setzt cursor zu angegebenen Koordinaten, in diesem Programm nur zu (0,0), also an den Anfang, damit es so wirkt, als ob nur die Zahlenwerte sich veraendern */
-int gotoxy(HANDLE hStdout, unsigned short x, unsigned short y)
+/* setzt cursor zu angegebenen Koordinaten */
+int cursorSetzen(HANDLE hStdout, unsigned short x, unsigned short y)
 {
    return SetConsoleCursorPosition(hStdout, (COORD){x,y});
+}
+
+void getUhrzeit(int minuten)
+{
+	uhrzeit.stunde = minuten / 60;
+	uhrzeit.minute = minuten % 60;
+	return;
+}
+
+void uhrzeitAusgeben(Uhrzeit uhrzeit)
+{
+	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); /* wird fuer cursorSetzen() benoetigt */
+	
+	cursorSetzen(hStdout, 0, 17);
+	if (uhrzeit.stunde == 9)
+	{
+		printf("0%i", uhrzeit.stunde);
+	} 
+	else 
+	{
+		printf("%i", uhrzeit.stunde);
+	}
+	
+	cursorSetzen(hStdout, 3, 17);
+	if (uhrzeit.minute >= 10)
+	{
+		printf("%i", uhrzeit.minute);
+	} 
+	else 
+	{
+		printf("0%i", uhrzeit.minute);
+	} 
+	return;
 }
