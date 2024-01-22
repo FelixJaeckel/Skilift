@@ -29,6 +29,6 @@ Der Variablenname beschreibt, was die Variable darstellt. Keine Abkürzungen.
 Funktionsnamen beschreiben, was die Funktion macht. Wenn man einen Wert holt, heißt die Funktion getWert()
 
 Kommentare sind /* Kommentar */
-Kommentare zu einzelnen Zeilen fangen eine Leertaste hinter der Zeile an. Kommentare zu Funktionen sind direkt über der Funktionsdeklaration
+Kommentare zu einzelnen Zeilen fangen eine Leertaste hinter der Zeile an. Kommentare zu Funktionen bzw. zu mehreren Zeilen sind direkt drüber
 
 Wir sollten bei einer Sprache bleiben, basierend auf meiner und deiner Datei wirds Deutsch. 

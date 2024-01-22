@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <windows.h>
 
-struct Uhrzeit;
+struct Uhrzeit; /* muss vor eigentlicher definition leer deklariert werden, damit der Prototyp Bescheid weiß, was eine Uhrzeit ist */
 
 int cursorSetzen(HANDLE, unsigned short, unsigned short);
-void getUhrzeit(int);
-void uhrzeitAusgeben(Uhrzeit);
+void uhrzeitAnpassen(int);
+void uhrzeitAusgeben(struct Uhrzeit);
 
 typedef struct Uhrzeit 
 {
@@ -14,7 +14,7 @@ typedef struct Uhrzeit
     int minute;
 } Uhrzeit;
 
-Uhrzeit uhrzeit;
+Uhrzeit uhrzeit; /* uhrzeit ist globale Variable, um UhrzeitAnpassen() zu erleichtern */
 
 
 int main(int argc, char *argv[]) {
@@ -23,14 +23,16 @@ int main(int argc, char *argv[]) {
 	
 	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); /* wird fuer cursorSetzen() benoetigt */
 	
-	minuten = 540;
-	uhrzeit.stunde = 9;
+	minuten = 540; /* wir starten bei 540 Minuten, weil der Skilift 9:00 Uhr aufmacht */
+	uhrzeit.stunde = 9; 
 	uhrzeit.minute = 0;
 	
+	/* Variablen zu Testzwecken */
 	zehnerkarten = 15;
 	bergstation_lift = 2;
 	tageskarten = 51;
 	
+	/* loop läuft bis 1320 Minuten, also bis 22:00 Uhr */
 	while(minuten <= 1320)
 	{
 		printf( "10er-Karten:  %i                                   ___Bergstation    Lift ab:  %i\n"
@@ -56,20 +58,21 @@ int main(int argc, char *argv[]) {
 				"...(P)ause"                                                
 				, zehnerkarten, bergstation_lift, tageskarten);
 		
-		uhrzeitAusgeben(uhrzeit);
+		uhrzeitAusgeben(uhrzeit); /* uhrzeit hat ein paar Eigenheiten, weswegen sie eine extrafunktion zum printen kriegt */
 		
+		/* nur zu testzwecken hier */
 		zehnerkarten++;
-		bergstation_lift++;
+		bergstation_lift++; 
 		tageskarten++;
 		
-		cursorSetzen(hStdout, 0, 0); /* setzt Cursor an den Anfang */
-		Sleep(1000);
-		minuten++;
-		getUhrzeit(minuten);
-	} 
-	
+		cursorSetzen(hStdout, 0, 0); /* setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */
+		Sleep(1000); /* wartet eine sekunde */
+		minuten++; /* eine minute vergeht */
+		uhrzeitAnpassen(minuten); /* minuten werden in uhrzeitformat umgewandelt */
+	} 	
 	return 0;
 }
+
 
 /* setzt cursor zu angegebenen Koordinaten */
 int cursorSetzen(HANDLE hStdout, unsigned short x, unsigned short y)
@@ -77,19 +80,24 @@ int cursorSetzen(HANDLE hStdout, unsigned short x, unsigned short y)
    return SetConsoleCursorPosition(hStdout, (COORD){x,y});
 }
 
-void getUhrzeit(int minuten)
+
+/* wandelt anzahl minuten in Uhrzeit-struct bestehend aus Stunden und Minuten um */
+void uhrzeitAnpassen(int minuten)
 {
 	uhrzeit.stunde = minuten / 60;
 	uhrzeit.minute = minuten % 60;
 	return;
 }
 
+
+/* sorgt dafür, dass uhrzeit immer mit zwei Ziffern vor und hinter dem Doppelpunkt ausgegeben wird */
 void uhrzeitAusgeben(Uhrzeit uhrzeit)
 {
 	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); /* wird fuer cursorSetzen() benoetigt */
 	
-	cursorSetzen(hStdout, 0, 17);
-	if (uhrzeit.stunde == 9)
+	/* packt 0 vor die Stunde wenn es um 9 ist, ansonsten wird die Stunde einfach nur geprintet */
+	cursorSetzen(hStdout, 0, 17);	
+	if (uhrzeit.stunde == 9) 
 	{
 		printf("0%i", uhrzeit.stunde);
 	} 
@@ -98,8 +106,9 @@ void uhrzeitAusgeben(Uhrzeit uhrzeit)
 		printf("%i", uhrzeit.stunde);
 	}
 	
-	cursorSetzen(hStdout, 3, 17);
-	if (uhrzeit.minute >= 10)
+	/* packt 0 vor einstellige Minuten */
+	cursorSetzen(hStdout, 3, 17);	
+	if (uhrzeit.minute >= 10) 
 	{
 		printf("%i", uhrzeit.minute);
 	} 
