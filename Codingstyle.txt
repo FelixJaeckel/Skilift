@@ -31,4 +31,4 @@ Funktionsnamen beschreiben, was die Funktion macht. Wenn man einen Wert holt, he
 Kommentare sind /* Kommentar */
 Kommentare zu einzelnen Zeilen fangen eine Leertaste hinter der Zeile an. Kommentare zu Funktionen bzw. zu mehreren Zeilen sind direkt drüber
 
-Wir sollten bei einer Sprache bleiben, basierend auf meiner und deiner Datei wirds Deutsch. 
+Wir sollten bei einer Sprache bleiben, basierend auf meiner und deiner Datei wirds Deutsch. Keine Umlaute oder ß, ich glaub die mag ANSI-C nicht (sicher ist sicher)
