@@ -23,6 +23,9 @@ for (...)
 	...
 }
 
+IMMER KORREKT EINRÜCKEN! Wenn irgendwo eine geschweifte Klammer aufgemacht wird, ist danach alles einen Tab eingerückt. Sonst wird das
+alles extrem unübersichtlich. 
+
 variablen_in_snake_case
 Der Variablenname beschreibt, was die Variable darstellt. Keine Abkürzungen. 
 
