@@ -77,12 +77,14 @@ int main(int argc, char *argv[]) {
 		}
 
 		Sleep(1000); /* wartet eine sekunde */
-		
+
+		/* TODO: Die Funktion, die die Tasteneingabe abfängt ist ziemlich schlecht. Mann muss oft Enter drücken um das zu bestätigen, 
+		   man schreibt die eingegebenen Zeichen in die Datei rein und Zeilen werden teilweise doppelt geprintet. Überarbeiten */
 		if (kbhit())  // Überprüfen, ob eine Taste gedrückt wurde
 		{
             input = tolower(getchar()); // Benutzereingabe lesen
             
-			//Turbo
+	    //Turbo
             if (input == 't') // Turbo aktiveren/Deaktivieren
 			{
 				if (loop_anzahl != 10) /* wenn Turbo aus ist, wechsel zu Turbo */
