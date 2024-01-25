@@ -8,6 +8,7 @@ struct Uhrzeit; /* muss vor eigentlicher definition leer deklariert werden, dami
 int cursorSetzen(HANDLE, unsigned short, unsigned short);
 void uhrzeitAnpassen(int);
 void uhrzeitAusgeben(struct Uhrzeit);
+void cursorVerstecken();
 
 typedef struct Uhrzeit 
 {
@@ -20,8 +21,11 @@ Uhrzeit uhrzeit; /* uhrzeit ist globale Variable, um UhrzeitAnpassen() zu erleic
 
 int main(int argc, char *argv[]) {
 	
+	cursorVerstecken();
 	int zehnerkarten, bergstation_lift, tageskarten, minuten, loop_anzahl;
 	char input;
+	input = NULL;
+
 	
 	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); /* wird fuer cursorSetzen() benoetigt */
 	
@@ -39,8 +43,10 @@ int main(int argc, char *argv[]) {
 	/* loop läuft bis 1320 Minuten, also bis 22:00 Uhr */
 	while(minuten <= 1320)
 	{
-		for (int i = 0; i < loop_anzahl; i++)
+		int i;
+		for (i = 0; i < loop_anzahl; i++)
 		{
+			
 			printf( "10er-Karten:  %i                                   ___Bergstation    Lift ab:  %i\n"
 					"Tageskarten:  %i                                  /        |    |\n"
 					"Skifahrten:   77                                 /        /     |\n"
@@ -73,59 +79,49 @@ int main(int argc, char *argv[]) {
 			
 			minuten++; /* eine minute vergeht */
 			uhrzeitAnpassen(minuten); /* minuten werden in uhrzeitformat umgewandelt */		
-			cursorSetzen(hStdout, 0, 0); /* setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */	
+			cursorSetzen(hStdout, 0, 0); /* setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */				
 		}
 
-		Sleep(1000); /* wartet eine sekunde */
-		
-		if (kbhit())  // Überprüfen, ob eine Taste gedrückt wurde
+	
+		input = NULL;
+		if (kbhit()) /* checkt, ob Taste gedrückt wurde */
 		{
-            input = tolower(getchar()); // Benutzereingabe lesen
-            
-			//Turbo
-            if (input == 't') // Turbo aktiveren/Deaktivieren
-			{
-				if (loop_anzahl != 10) /* wenn Turbo aus ist, wechsel zu Turbo */
-				{
-				    loop_anzahl = 10; // Wechsel des Turbo moduses	
-				} 
-				else /* wenn Turbo an ist, wechsel zu Standard */
-				{
-					loop_anzahl = 1; 
-				}
-                /* printf("Turbo-Modus %s\n", turbo ? "aktiviert" : "deaktiviert"); */
-            }
-            
-			//Pause
-            if (input == 'p') // Falls 'p' gedrückt wurde, pausieren
-			{ 
-				if (loop_anzahl != 0) /* wenn Pause aus ist, wechsel zu Pause */
-				{
-					loop_anzahl = 0;
-				} 
-				else /* wenn Pause an ist, wechsel zu Standard */
-				{
-					loop_anzahl = 1;
-				}
-                /* printf("Die Uhr ist pausiert. Drücken Sie 'r', um fortzufahren.\n"); */
-                /* while (1) 
-				{
-                    input = tolower(getchar();
-                    if (input == 'p') // Falls 'r' gedrückt wurde, fortsetzen
-					{ 
-                        break;
-                        fflush(stdin);
-                    }
-                } */
-            }
-            else if (input == '0') // Progamm beendung mit 0
-			{ 
-                  
-				  break;
-            }
+	        input = tolower(getch()); // Benutzereingabe lesen	
+			fflush(stdout);	
+		} else {
+			input = NULL;
+		}
+
+
+        if (input == '0') // Progamm beendung mit 0
+		{   
+			cursorSetzen(hStdout, 0, 22); /* Cursor ans Ende setzen, damit die exit-messsage nicht ins Programm geprintet wird */
+			break;
         }
-		
-		
+        else if (input == 't') // Turbo aktiveren/Deaktivieren
+		{
+			if (loop_anzahl != 10) /* wenn Turbo aus ist, wechsel zu Turbo */
+			{
+			    loop_anzahl = 10; // Wechsel des Turbo moduses	
+			} 
+			else /* wenn Turbo an ist, wechsel zu Standard */
+			{
+				loop_anzahl = 1; 
+			}
+            /* printf("Turbo-Modus %s\n", turbo ? "aktiviert" : "deaktiviert"); */
+        }     
+        else if (input == 'p') // Falls 'p' gedrückt wurde, pausieren
+		{ 
+			if (loop_anzahl != 0) /* wenn Pause aus ist, wechsel zu Pause */
+			{
+				loop_anzahl = 0;
+			} 
+			else /* wenn Pause an ist, wechsel zu Standard */
+			{
+				loop_anzahl = 1;
+			}
+        } 
+		Sleep(1000); /* wartet eine sekunde */  
 	} 	
 	return 0;
 }
@@ -137,6 +133,15 @@ int cursorSetzen(HANDLE hStdout, unsigned short x, unsigned short y)
    return SetConsoleCursorPosition(hStdout, (COORD){x,y});
 }
 
+/* versteckt Cursor */
+void cursorVerstecken()
+{
+   HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+   CONSOLE_CURSOR_INFO info;
+   info.dwSize = 100;
+   info.bVisible = FALSE;
+   SetConsoleCursorInfo(consoleHandle, &info);
+}
 
 /* wandelt anzahl minuten in Uhrzeit-struct bestehend aus Stunden und Minuten um */
 void uhrzeitAnpassen(int minuten)
@@ -151,7 +156,7 @@ void uhrzeitAnpassen(int minuten)
 void uhrzeitAusgeben(Uhrzeit uhrzeit)
 {
 	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); /* wird fuer cursorSetzen() benoetigt */
-	
+
 	/* packt 0 vor die Stunde wenn es um 9 ist, ansonsten wird die Stunde einfach nur geprintet */
 	cursorSetzen(hStdout, 0, 17);	
 	if (uhrzeit.stunde == 9) 
