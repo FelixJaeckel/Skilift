@@ -1,3 +1,5 @@
+test
+
 funktionstyp funktionInCamelCase(parameter, parameter)
 {
 	Funktionsinhalt

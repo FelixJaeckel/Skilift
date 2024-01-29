@@ -10,11 +10,21 @@ void uhrzeitAnpassen(int);
 void uhrzeitAusgeben(struct Uhrzeit);
 void cursorVerstecken();
 
+typedef struct Skifahrer
+{
+	int ankunftsart;
+	int uebrige_fahrten;
+	int aktuelle_position;
+	int gesamtfahrten;
+} Skifahrer;
+
 typedef struct Uhrzeit 
 {
     int stunde;
     int minute;
 } Uhrzeit;
+
+struct Skifahrer skifahrer_feld[2010];
 
 Uhrzeit uhrzeit; /* uhrzeit ist globale Variable, um UhrzeitAnpassen() zu erleichtern */
 
@@ -44,11 +54,12 @@ int main(int argc, char *argv[]) {
 	while(minuten <= 1320)
 	{
 		int i;
+		
 		for (i = 0; i < loop_anzahl; i++)
 		{
-			
-			printf( "10er-Karten:  %i                                   ___Bergstation    Lift ab:  %i\n"
-					"Tageskarten:  %i                                  /        |    |\n"
+			cursorSetzen(hStdout, 0, 0); /* setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */
+			printf( "10er-Karten:  %03.i                                  ___Bergstation    Lift ab:  %i\n"
+					"Tageskarten:  %03.i                                 /        |    |\n"
 					"Skifahrten:   77                                 /        /     |\n"
 					"                                                -        /      |\n"
 					"                                               /        |       |\n"
@@ -79,9 +90,10 @@ int main(int argc, char *argv[]) {
 			
 			minuten++; /* eine minute vergeht */
 			uhrzeitAnpassen(minuten); /* minuten werden in uhrzeitformat umgewandelt */		
-			cursorSetzen(hStdout, 0, 0); /* setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */				
+							
 		}
 
+		Sleep(1000); /* wartet eine sekunde */  
 	
 		input = NULL;
 		if (kbhit()) /* checkt, ob Taste gedrückt wurde */
@@ -121,7 +133,7 @@ int main(int argc, char *argv[]) {
 				loop_anzahl = 1;
 			}
         } 
-		Sleep(1000); /* wartet eine sekunde */  
+		
 	} 	
 	return 0;
 }
