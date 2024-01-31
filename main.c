@@ -2,13 +2,31 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <conio.h>
+#define abwesend 					100
+#define schlange_tal 				101
+#define schlange_mitte_zu_hoch 		102
+#define schlange_berg 				103
+#define schlange_mitte_zu_runter 	104
+#define lift_tal_zu_mitte			105
+#define lift_mitte_zu_berg			106
+#define lift_berg_zu_mitte			107
+#define lift_mitte_zu_tal			108
+#define piste_S1					109
+#define piste_B2					110
+#define piste_R2					111
+#define piste_B1					112
+#define piste_R1					113
 
 struct Uhrzeit; /* muss vor eigentlicher definition leer deklariert werden, damit der Prototyp Bescheid weiß, was eine Uhrzeit ist */
+struct Skifahrer;
+struct Lift;
 
 int cursorSetzen(HANDLE, unsigned short, unsigned short);
 void uhrzeitAnpassen(int);
 void uhrzeitAusgeben(struct Uhrzeit);
 void cursorVerstecken();
+void tal_zu_mitte(struct Skifahrer, struct Lift);
+void positionen_checken(struct Skifahrer);
 
 typedef struct Skifahrer
 {
@@ -18,21 +36,44 @@ typedef struct Skifahrer
 	int gesamtfahrten;
 } Skifahrer;
 
+typedef struct Lift
+{
+	Skifahrer skifahrer1;
+	Skifahrer skifahrer2;
+	Skifahrer skifahrer3;
+	Skifahrer skifahrer4;
+} Lift;
+
 typedef struct Uhrzeit 
 {
     int stunde;
     int minute;
 } Uhrzeit;
 
-struct Skifahrer skifahrer_feld[2010];
+Uhrzeit uhrzeit;
 
-Uhrzeit uhrzeit; /* uhrzeit ist globale Variable, um UhrzeitAnpassen() zu erleichtern */
+Skifahrer skifahrer_liste[2010];
+Skifahrer tal_warteschlange[500];
+Lift lift_liste[110]; /* evtl sollte man für die stationen mit nem pointer auf die Liste hier zeigen und dann immer den wert ändern 
+						d.h. tal_schlange zeigt auf lift_liste[0] und dann wird immer nur der Wert von lift_liste[0] geändert.
+						Dementsprechend gibt es keine warteschlangen arrays mehr */
 
+int zehnerkarten, tageskarten,
+	schlangenlaenge_tal, schlangenlaenge_berg, schlangenlaenge_mitte_hoch, schlangenlaenge_mitte_runter, 
+	anzahl_tal_zu_mitte, anzahl_mitte_zu_berg, anzahl_berg_zu_mitte, anzahl_mitte_zu_tal,
+	anzahl_S1, anzahl_B2, anzahl_R2, anzahl_B1, anzahl_R1, 
+	minuten, loop_anzahl;
 
 int main(int argc, char *argv[]) {
 	
 	cursorVerstecken();
-	int zehnerkarten, bergstation_lift, tageskarten, minuten, loop_anzahl;
+	/*
+	int zehnerkarten, tageskarten,
+		schlangenlaenge_tal, schlangenlaenge_berg, schlangenlaenge_mitte_hoch, schlangenlaenge_mitte_runter, 
+		anzahl_tal_zu_mitte, anzahl_mitte_zu_berg, anzahl_berg_zu_mitte, anzahl_mitte_zu_tal,
+		anzahl_S1, anzahl_B2, anzahl_R2, anzahl_B1, anzahl_R1, 
+		minuten, loop_anzahl;
+		*/
 	char input;
 	input = NULL;
 
@@ -46,10 +87,17 @@ int main(int argc, char *argv[]) {
 	loop_anzahl = 1; /* bestimmt, wie oft pro Sekunde der Hauptloop durchlaufen wird. Standardwert ist 1, Turbo ist 10, Pause ist 0 */
 	
 	/* Variablen zu Testzwecken */
-	zehnerkarten = 15;
-	bergstation_lift = 2;
-	tageskarten = 51;
+	schlangenlaenge_tal = 1;
+	schlangenlaenge_berg = 0;
 	
+	/* einzelner Skifahrer zu testzwecken */
+	skifahrer_liste[0].ankunftsart = 0;
+	skifahrer_liste[0].gesamtfahrten = 0;
+	skifahrer_liste[0].uebrige_fahrten = 9999;
+	skifahrer_liste[0].aktuelle_position = schlange_tal;	tal_warteschlange[0] = skifahrer_liste[0];
+	
+	tal_zu_mitte(skifahrer_liste[0], lift_liste[0]);
+	printf("%d", skifahrer_liste[0].aktuelle_position); /*die Position ändert sich nur während der funktion, nicht permanent */
 	/* loop läuft bis 1320 Minuten, also bis 22:00 Uhr */
 	while(minuten <= 1320)
 	{
@@ -57,9 +105,12 @@ int main(int argc, char *argv[]) {
 		
 		for (i = 0; i < loop_anzahl; i++)
 		{
-			cursorSetzen(hStdout, 0, 0); /* setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */
-			printf( "10er-Karten:  %03.i                                  ___Bergstation    Lift ab:  %i\n"
-					"Tageskarten:  %03.i                                 /        |    |\n"
+			
+			
+			
+			cursorSetzen(hStdout, 0, 1); /* setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */
+			printf( "10er-Karten:  5                                    ___Bergstation Schlange: %d\n"
+					"Tageskarten:  5                                   /        |    |  Lift ab: %d \n"
 					"Skifahrten:   77                                 /        /     |\n"
 					"                                                -        /      |\n"
 					"                                               /        |       |\n"
@@ -73,24 +124,21 @@ int main(int argc, char *argv[]) {
 					"                                  \\        |           /\n"
 					"Lift T<>M:  14                   B1:  4    R1: 12     S1:  5\n"
 					"                                   \\        \\        /\n"
-					"                                    \\       /       /\n"
-					"                                     ----Talstation--               Lift auf:  2\n"
+					"                                    \\       /       /           Lift auf:  %d\n"
+					"                                     ----Talstation Schlange: %d\n"
 					"  :   Uhr                               (H):  0\n"
 				   	"Personen auf Berg:  83                  [P]:  1 Auto\n"
 					"...(T)urbo\n"
 					"...(P)ause"                                                
-					, zehnerkarten, bergstation_lift, tageskarten);
+					, schlangenlaenge_berg, anzahl_berg_zu_mitte, anzahl_tal_zu_mitte, schlangenlaenge_tal);
 			
 			uhrzeitAusgeben(uhrzeit); /* uhrzeit hat ein paar Eigenheiten, weswegen sie eine extrafunktion zum printen kriegt */
 			
 			/* nur zu testzwecken hier */
-			zehnerkarten++;
-			bergstation_lift++; 
-			tageskarten++;
 			
 			minuten++; /* eine minute vergeht */
 			uhrzeitAnpassen(minuten); /* minuten werden in uhrzeitformat umgewandelt */		
-							
+			positionen_checken(skifahrer_liste[0]);				
 		}
 
 		Sleep(1000); /* wartet eine sekunde */  
@@ -191,4 +239,27 @@ void uhrzeitAusgeben(Uhrzeit uhrzeit)
 		printf("0%i", uhrzeit.minute);
 	} 
 	return;
+}
+
+/* ziel ist später, eine allgemeine Funktion zum Einsteigen in den Lift zu haben. Das hier ist nur provisorisch da */
+void tal_zu_mitte(Skifahrer skifahrer1, Lift lift1)
+{
+	lift1.skifahrer1 = skifahrer1;
+	skifahrer1.aktuelle_position = lift_tal_zu_mitte;
+	skifahrer1.uebrige_fahrten--;
+}
+
+/* soll durch gesamte skifahrer_liste durchgehen und deren positionen bestimmen */
+void positionen_checken(Skifahrer skifahrer1)
+{
+	printf(" %d", skifahrer1.aktuelle_position);
+	printf(" %d", anzahl_tal_zu_mitte);
+	
+	switch(skifahrer1.aktuelle_position)
+	{
+		case lift_tal_zu_mitte: anzahl_tal_zu_mitte++; 
+		printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		break;
+	}
+	printf(" %d", anzahl_tal_zu_mitte);
 }

@@ -84,13 +84,13 @@ int main(int argc, char *argv[]) {
     /* Zufallsgenerator initialisieren */
     //srand(time(0));
     	
-		/*Für komm und geh zeiten*/
+		/*FÃ¼r komm und geh zeiten*/
 		 if (reverseminute > 600) {
-        randomCount = rand() % 6; // Zufällige Anzahl von 0 bis 5
-        arraySize += randomCount; // Die Größe des Arrays entsprechend erhöhen
-        arr = (struct Element *)realloc(arr, arraySize * sizeof(struct Element)); // Speicher für die zusätzlichen Elemente allozieren
+        randomCount = rand() % 6; // ZufÃ¤llige Anzahl von 0 bis 5
+        arraySize += randomCount; // Die GrÃ¶ÃŸe des Arrays entsprechend erhÃ¶hen
+        arr = (struct Element *)realloc(arr, arraySize * sizeof(struct Element)); // Speicher fÃ¼r die zusÃ¤tzlichen Elemente allozieren
 		}
-         /*Initialisieren der hinzugefügten Elemente mit zufälligen Werten*/
+         /*Initialisieren der hinzugefÃ¼gten Elemente mit zufÃ¤lligen Werten*/
         for (int i = arraySize - randomCount; i < arraySize; i++) {
 PersonenGesamtaufBerg = i;
 		if(rand() % 10 <= 5)
@@ -107,7 +107,7 @@ PersonenGesamtaufBerg = i;
 			arttibut1nr = 1;  
 			Autonr= 0;
 			} 
-			else if (rand() % 10 < 6 && rand() % 10 >3/*bus plan einfügen*/)
+			else if (rand() % 10 < 6 && rand() % 10 >3/*bus plan einfÃ¼gen*/)
 			{
 				/*Busfahrende*/
 			arttibut1nr = 2;
@@ -123,8 +123,8 @@ PersonenGesamtaufBerg = i;
 			int q;
 			for (q = 0 ; q < Zufall ; q++){
 			
-		arraySize += Zufall; // Die Größe des Arrays entsprechend erhöhen
-        arr = (struct Element *)realloc(arr, arraySize * sizeof(struct Element)); // Speicher für die zusätzlichen Elemente allozieren
+		arraySize += Zufall; // Die GrÃ¶ÃŸe des Arrays entsprechend erhÃ¶hen
+        arr = (struct Element *)realloc(arr, arraySize * sizeof(struct Element)); // Speicher fÃ¼r die zusÃ¤tzlichen Elemente allozieren
             arr[i].value = i;  /*nummer des skifaheres
             arr[i].attribute1 = 3;
             arr[i].attribute2 = rand() % 10;  
@@ -142,12 +142,13 @@ PersonenGesamtaufBerg = i;
     }
 	
 
-/*array ausgabe zu Testzwecken
-for (int i = 0; i < arraySize; i++) {
+/*array ausgabe zu Testzwecken*/
+for (int i = 0; i < arraySize; i++) 
+{
     printf("Element %d: value = %d, attribute1 = %d, attribute2 = %d, attribute3 = %d\n", i, arr[i].value, arr[i].attribute1, arr[i].attribute2, arr[i].attribute3);
 }*/
-/*
-Legende für array verteilung
+/**/
+Legende fÃ¼r array verteilung
 Wert= Nummer des Skifahrers
 attribut1= Herkunft des Skifaheres
 attribut2= Derzeitiger aufentaltsort
@@ -156,7 +157,7 @@ attribut4= Auto
 
 attribut1:
 
-1=Zu Fuß aus dem Schneedorf
+1=Zu FuÃŸ aus dem Schneedorf
 2=Auto
 3=Bus
 
@@ -175,18 +176,18 @@ atribut4:
 2= Tageskarte
 */
 
-        /* Überprüfen, ob insgesamt 2 Minuten vergangen sind, und danach das array abbauen*/
+        /* ÃœberprÃ¼fen, ob insgesamt 2 Minuten vergangen sind, und danach das array abbauen*/
         if (reverseminute < 180 ) {
         	
         	/*if(PersonenGesamtaufBerg >= 6){*/
-             /*Alle 10 Sekunden eine zufällige Anzahl von Elementen zwischen 0 und 5 dem Array entfernen*/
+             /*Alle 10 Sekunden eine zufÃ¤llige Anzahl von Elementen zwischen 0 und 5 dem Array entfernen*/
             randomRemoveCount = rand() % 5;
            if (randomRemoveCount > arraySize) {
                 randomRemoveCount = arraySize; /* Sicherstellen, dass nicht mehr Elemente entfernt werden als vorhanden sind*/
             }
-            arraySize -= randomRemoveCount; /* Die Größe des Arrays entsprechend verringern*/
+            arraySize -= randomRemoveCount; /* Die GrÃ¶ÃŸe des Arrays entsprechend verringern*/
             memmove(arr, arr + randomRemoveCount, (arraySize - randomRemoveCount) * sizeof(struct Element)); /* Elemente verschieben */
-            arr = (struct Element *)realloc(arr, arraySize * sizeof(struct Element)); /* Speicher für die entfernten Elemente freigeben */
+            arr = (struct Element *)realloc(arr, arraySize * sizeof(struct Element)); /* Speicher fÃ¼r die entfernten Elemente freigeben */
             PersonenGesamtaufBerg = arraySize;
         /*}else {
 		PersonenGesamtaufBerg = 0;
@@ -325,25 +326,25 @@ reverseminute--;
 				"                                     ----Talstation--               Lift auf:  2\n"
 				"  :   Uhr                               (H):  0\n"
 			   	"Personen auf Berg:  83                  [P]:  1 Auto\n"  
-				"\n                  ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»                "
-		"\n  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄº                                          ºÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿"
-		"\n  ³               º      %sbersicht %sber den Berg             º               ³"
-		"\n  ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄº                                          ºÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´"
-		"\n  ³               ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼               ³"
-		"\n  ³                    ³           Allgemeine Zahlen:                        ³"
-		"\n  ³                    ³          Personen auf Berg:  %d%s                   ³"
-		"\n  ³                    ³          10er-Karten:  %d%s                         ³"
-		"\n  ³                    ³          Tageskarten: %d%s                          ³"
-		"\n  ³                    ³          Skifahrten:   %d%s                         ³"
-		"\n  ³                    ³          Schneedorf Besucher:   %d%s                ³"
-		"\n  ³                    ³          Parkende Wagen:  %d Auto %s                ³"
-		"\n  ³                    ³          Busse an diesem Tag:  %d  %s               ³"
-		"\n  ³                    ³          %s                                        ³"
-		"\n  ³                    ³          M%sgliche Eingaben:                         ³"
-		"\n  ³                    ³          (T)urbo                                    ³"
-		"\n  ³                    ³          (P)ause                                    ³"
-		"\n  ³                    ³          (0)  Programmende                          ³"
-		"\n  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ" 
+				"\n                  Ã‰ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÂ»                "
+		"\n  ÃšÃ„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Âº                                          ÂºÃ„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Â¿"
+		"\n  Â³               Âº      %sbersicht %sber den Berg             Âº               Â³"
+		"\n  ÃƒÃ„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Âº                                          ÂºÃ„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Â´"
+		"\n  Â³               ÃˆÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÂ¼               Â³"
+		"\n  Â³                    Â³           Allgemeine Zahlen:                        Â³"
+		"\n  Â³                    Â³          Personen auf Berg:  %d%s                   Â³"
+		"\n  Â³                    Â³          10er-Karten:  %d%s                         Â³"
+		"\n  Â³                    Â³          Tageskarten: %d%s                          Â³"
+		"\n  Â³                    Â³          Skifahrten:   %d%s                         Â³"
+		"\n  Â³                    Â³          Schneedorf Besucher:   %d%s                Â³"
+		"\n  Â³                    Â³          Parkende Wagen:  %d Auto %s                Â³"
+		"\n  Â³                    Â³          Busse an diesem Tag:  %d  %s               Â³"
+		"\n  Â³                    Â³          %s                                        Â³"
+		"\n  Â³                    Â³          M%sgliche Eingaben:                         Â³"
+		"\n  Â³                    Â³          (T)urbo                                    Â³"
+		"\n  Â³                    Â³          (P)ause                                    Â³"
+		"\n  Â³                    Â³          (0)  Programmende                          Â³"
+		"\n  Ã€Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„ÃÃ„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã™" 
 		" %d                                                                \n"
 		"                                                                 \n"
 		"                                                                 \n"
@@ -372,7 +373,7 @@ reverseminute--;
 		minuten++; /* eine minute vergeht */
 		uhrzeitAnpassen(minuten); /* minuten werden in uhrzeitformat umgewandelt */
 		
-		if (kbhit())  // Überprüfen, ob eine Taste gedrückt wurde
+		if (kbhit())  // ÃœberprÃ¼fen, ob eine Taste gedrÃ¼ckt wurde
 		{
             input = tolower(getchar()); // Benutzereingabe lesen
             
@@ -384,15 +385,15 @@ reverseminute--;
             }
             
 			//Pause
-            if (input == 'p') // Falls 'p' gedrückt wurde, pausieren
+            if (input == 'p') // Falls 'p' gedrÃ¼ckt wurde, pausieren
 			{ 
-                printf("Die Uhr ist pausiert. Drücken Sie 'r', um fortzufahren.\n");
+                printf("Die Uhr ist pausiert. DrÃ¼cken Sie 'r', um fortzufahren.\n");
                 while (1) 
 				{
                     input = getchar();
-                    if (input == 'r') // Falls 'r' gedrückt wurde, fortsetzen
+                    if (input == 'r') // Falls 'r' gedrÃ¼ckt wurde, fortsetzen
 					{ 
-                        printf("Die Uhr läuft weiter\n");
+                        printf("Die Uhr lÃ¤uft weiter\n");
                         break;
                         fflush(stdin);
                     }
@@ -497,7 +498,7 @@ int getZufallszahl()
     return rand() % 3; // ergibt eine Zufallszahl zwischen 0 und 2
 }
 
-//Holle Zufallszahl von 1-5 für Leute die im Auto kommen
+//Holle Zufallszahl von 1-5 fÃ¼r Leute die im Auto kommen
 int getZufallszahl() 
 {
     int getRandomNumber() 
@@ -506,7 +507,7 @@ int getZufallszahl()
 	}
 }
 
-//Holle Zufallszahl von 0-50 für Leute die mit dem Bus kommen
+//Holle Zufallszahl von 0-50 fÃ¼r Leute die mit dem Bus kommen
 int getRandomNumber() 
 {
     return rand() % 51; //ergibt eine Zufallszahl zwischen 0 und 50
