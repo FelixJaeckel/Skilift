@@ -102,160 +102,168 @@ int main(int argc, char *argv[]) {
 	/* loop läuft bis 1320 Minuten, also bis 22:00 Uhr */
 	while(minuten <= 1320)
 	{
-		/*Variabeln f�r S1*/
-	int randS1Zeit;
-	randS1Zeit = 0;
-	int s1feierabendzeit;
-	s1feierabendzeit =770;
-	int s1ungewoehnlichhoch;
-	s1ungewoehnlichhoch = 720;
-	int reverseminutes1;
-	reverseminutes1 = 780;
-	/*Variabeln f�r B1*/
-	int randB1Zeit;
-	randB1Zeit = 0;
-	int b1feierabendzeit;
-	b1feierabendzeit =776;
-	int b1ungewoehnlichhoch;
-	b1ungewoehnlichhoch = 758;
-	int reverseminuteb1;
-	reverseminuteb1 = 780;
-	/*Variabeln f�r B2*/
-	int randB2Zeit;
-	randB2Zeit = 0;
-	int b2feierabendzeit;
-	b2feierabendzeit =774;
-	int b2ungewoehnlichhoch;
-	b2ungewoehnlichhoch = 737;
-	int reverseminuteb2;
-	reverseminuteb2 = 780;
-	/*Variabeln f�r R1*/
-	int randR1Zeit;
-	randR1Zeit = 0;
-	int r1feierabendzeit;
-	r1feierabendzeit =776;
-	int r1ungewoehnlichhoch;
-	r1ungewoehnlichhoch = 759;
-	int reverseminuter1;
-	reverseminuter1 = 780;
-	/*Variabeln f�r R2*/
-	int randR2Zeit;
-	randR2Zeit = 0;
-	int r2feierabendzeit;
-	r2feierabendzeit =775;
-	int r2ungewoehnlichhoch;
-	r2ungewoehnlichhoch = 743;
-	int reverseminuter2;
-	reverseminuter2 = 780;
-
-	
-	/*Randomzeit f�r die S1*/
-	
-	if(reverseminutes1 <= 9)
-	{
-		/*deaktiviert switch case*/
-		/*printf("S1 ist Geschlossen");*/
+		/*  1. Alle Variablen auf einer Zeile definieren.
+			2. Die Buchstaben in den Pisten immer groß schreiben. Ich mussste kurz überlegen was "random minutes 1" ist, bis mir klar wurde, dass es es "random minute s1" ist.
+			3. So wie das ganze aktuell positioniert ist, werden deine Variablen mit jedem loop wieder auf ihre Startwerte zurückgesetzt. Die müssen außerhalb des while-loops definiert werden.
+			4. Das Ganze sollte am besten in einer Funktion sein, die man aufrufen kann. Optimal wäre eine allgemeine Funktion, der man die entsprechende Piste übergibt und die dementsprechend handelt.
+			   Aber eine Funktion pro Piste ist auch okay. Hauptsache raus aus dem hauptloop. (das sollte ich übrigens auch mit dem Turbo- und Pausenzeugs machen)
+			5. In deinen Kommentaren erwähnst du, dass eine switch-case deaktiviert wird. Aber da ist nirgendwo ein switch, der deaktiviert werden könnte. 
+			6. Guck, ob du eventuell eine Möglichkeit findest, das ganze kürzer zu svhreiben. Soll heißen, dass du nicht 5 mal die gleiche Verzweigung nur mit anderen Werten in den Code schreiben musst.
+			   Falls das nicht geht, ist es auch okay.
+			7. Falls dev-c++ dich irgendwas wegen "utf-8 encoding" oder ähnliches beim Speichern fragt, klick auf ja. Kann sein, dass du das schon machst, ich hatte jedenfalls jetzt zwei mal das Problem,
+			   dass sich Dateien nicht mehr öffnen ließen, weil die Umlaute kaputt waren. Eventuell lags daran. 
+		/*Variabeln für S1*/
+		int randS1Zeit, s1feierabendzeit, s1ungewoehnlichhoch, reverseminuteS1;
 		randS1Zeit = 0;
-	} else if(reverseminutes1 <= 59)
-	{
-		randS1Zeit = (rand() % s1feierabendzeit)+9;
-	} else if(rand() % 100 > 10){
-		randS1Zeit = (rand() % 51)+9;/*Zuf�llige zeit zwischen 9 und 59*/
-	}else{
-		randS1Zeit = (rand() % s1ungewoehnlichhoch)+59;
-			
-	}
-	/*Randomzeit f�r die B1*/
-	
-	if(reverseminuteb1 <= 3)
-	{
-		/*deaktiviert switch case*/
-		/*printf("B1 ist Geschlossen");*/
-		randB1Zeit = 0;
-	} else if(reverseminuteb1 <= 23)
-	{
-		randB1Zeit = (rand() % b1feierabendzeit)+3;
-	} else if(rand() % 100 > 10){
-		randB1Zeit = (rand() % 21)+3;/*Zuf�llige zeit zwischen 3 und 24*/
-	}else{
-		randB1Zeit = (rand() % b1ungewoehnlichhoch)+23;
-			
-	}
-		/*Randomzeit f�r die B2*/
+		s1feierabendzeit =770;
+		s1ungewoehnlichhoch = 720;
+		reverseminuteS1 = 780;
 		
-	if(reverseminuteb2 <= 5)
-	{
-		/*deaktiviert switch case*/
-		/*printf("B2 ist Geschlossen");*/
+		/*Variabeln für B1*/
+		int randB1Zeit;
+		randB1Zeit = 0;
+		int b1feierabendzeit;
+		b1feierabendzeit =776;
+		int b1ungewoehnlichhoch;
+		b1ungewoehnlichhoch = 758;
+		int reverseminuteb1;
+		reverseminuteb1 = 780;
+		/*Variabeln für B2*/
+		int randB2Zeit;
 		randB2Zeit = 0;
-	} else if(reverseminuteb2 <= 42)
-	{
-		randB2Zeit = (rand() % b2feierabendzeit)+5;
-	} else if(rand() % 100 > 10){
-		randB2Zeit = (rand() % 38)+5;/*Zuf�llige zeit zwischen 5 und 42*/
-	}else{
-		randB2Zeit = (rand() % b2ungewoehnlichhoch)+42;
-			
-	}	
-			/*Randomzeit f�r die R1*/
-			
-	if(reverseminuter1 <= 3)
-	{
-		/*deaktiviert switch case*/
-		/*printf("R1 ist Geschlossen");*/
+		int b2feierabendzeit;
+		b2feierabendzeit =774;
+		int b2ungewoehnlichhoch;
+		b2ungewoehnlichhoch = 737;
+		int reverseminuteb2;
+		reverseminuteb2 = 780;
+		/*Variabeln für R1*/
+		int randR1Zeit;
 		randR1Zeit = 0;
-	} else if(reverseminuter1 <= 20)
-	{
-		randR1Zeit = (rand() % r1feierabendzeit)+3;
-	} else if(rand() % 100 > 10){
-		randR1Zeit = (rand() % 18)+3;/*Zuf�llige zeit zwischen 3 und 20*/
-	}else{
-		randR1Zeit = (rand() % r1ungewoehnlichhoch)+20;
-			
-	}	
-				/*Randomzeit f�r die R2*/
-				
-					if(reverseminuter2 <= 3)
-	{
-		/*deaktiviert switch case*/
-		/*printf("R2 ist Geschlossen");*/
+		int r1feierabendzeit;
+		r1feierabendzeit =776;
+		int r1ungewoehnlichhoch;
+		r1ungewoehnlichhoch = 759;
+		int reverseminuter1;
+		reverseminuter1 = 780;
+		/*Variabeln für R2*/
+		int randR2Zeit;
 		randR2Zeit = 0;
-	} else if(reverseminuter2 <= 37)
-	{
-		randR2Zeit = (rand() % r2feierabendzeit)+3;
-	} else if(rand() % 100 > 10){
-		randR2Zeit = (rand() % 35)+3;/*Zuf�llige zeit zwischen 3 und 38*/
-	}else{
-		randR2Zeit = (rand() % r2ungewoehnlichhoch)+37;
+		int r2feierabendzeit;
+		r2feierabendzeit =775;
+		int r2ungewoehnlichhoch;
+		r2ungewoehnlichhoch = 743;
+		int reverseminuter2;
+		reverseminuter2 = 780;
+	
+		
+		/*Randomzeit für die S1*/
+		
+		if(reverseminuteS1 <= 9)
+		{
+			/*deaktiviert switch case*/
+			/*printf("S1 ist Geschlossen");*/
+			randS1Zeit = 0;
+		} else if(reverseminuteS1 <= 59)
+		{
+			randS1Zeit = (rand() % s1feierabendzeit)+9;
+		} else if(rand() % 100 > 10){
+			randS1Zeit = (rand() % 51)+9;/*Zufällige zeit zwischen 9 und 59*/
+		}else{
+			randS1Zeit = (rand() % s1ungewoehnlichhoch)+59;
+				
+		}
+		/*Randomzeit für die B1*/
+		
+		if(reverseminuteb1 <= 3)
+		{
+			/*deaktiviert switch case*/
+			/*printf("B1 ist Geschlossen");*/
+			randB1Zeit = 0;
+		} else if(reverseminuteb1 <= 23)
+		{
+			randB1Zeit = (rand() % b1feierabendzeit)+3;
+		} else if(rand() % 100 > 10){
+			randB1Zeit = (rand() % 21)+3;/*Zufällige zeit zwischen 3 und 24*/
+		}else{
+			randB1Zeit = (rand() % b1ungewoehnlichhoch)+23;
+				
+		}
+			/*Randomzeit für die B2*/
 			
-	}	
-/*	Zu testzwecken
-	printf("%d\t\t%d\n", randS1Zeit, reverseminutes1);
-	printf("%d\n", randB1Zeit);
-	printf("%d\n", randB2Zeit);
-	printf("%d\n", randR1Zeit);
-	printf("%d\n", randR2Zeit);*/
-	/*Aktivierungszeiten*/
-		reverseminutes1--;
+		if(reverseminuteb2 <= 5)
+		{
+			/*deaktiviert switch case*/
+			/*printf("B2 ist Geschlossen");*/
+			randB2Zeit = 0;
+		} else if(reverseminuteb2 <= 42)
+		{
+			randB2Zeit = (rand() % b2feierabendzeit)+5;
+		} else if(rand() % 100 > 10){
+			randB2Zeit = (rand() % 38)+5;/*Zufällige zeit zwischen 5 und 42*/
+		}else{
+			randB2Zeit = (rand() % b2ungewoehnlichhoch)+42;
+				
+		}	
+				/*Randomzeit für die R1*/
+				
+		if(reverseminuter1 <= 3)
+		{
+			/*deaktiviert switch case*/
+			/*printf("R1 ist Geschlossen");*/
+			randR1Zeit = 0;
+		} else if(reverseminuter1 <= 20)
+		{
+			randR1Zeit = (rand() % r1feierabendzeit)+3;
+		} else if(rand() % 100 > 10){
+			randR1Zeit = (rand() % 18)+3;/*Zufällige zeit zwischen 3 und 20*/
+		}else{
+			randR1Zeit = (rand() % r1ungewoehnlichhoch)+20;
+				
+		}	
+					/*Randomzeit für die R2*/
+					
+						if(reverseminuter2 <= 3)
+		{
+			/*deaktiviert switch case*/
+			/*printf("R2 ist Geschlossen");*/
+			randR2Zeit = 0;
+		} else if(reverseminuter2 <= 37)
+		{
+			randR2Zeit = (rand() % r2feierabendzeit)+3;
+		} else if(rand() % 100 > 10){
+			randR2Zeit = (rand() % 35)+3;/*Zufällige zeit zwischen 3 und 38*/
+		}else{
+			randR2Zeit = (rand() % r2ungewoehnlichhoch)+37;
+				
+		}	
+	/*	Zu testzwecken */
+		printf("%d\t\t %d\n", randS1Zeit, reverseminuteS1);
+		printf("%d\n", randB1Zeit);
+		printf("%d\n", randB2Zeit);
+		printf("%d\n", randR1Zeit);
+		printf("%d\n", randR2Zeit);
+		/*Aktivierungszeiten*/
+		reverseminuteS1--;
 		reverseminuteb1--;
 		reverseminuteb2--;
 		reverseminuter1--;
 		reverseminuter2--;
-	/*Max Zeiten*/
-	s1ungewoehnlichhoch--;
-	s1feierabendzeit--;
-	
-	b1ungewoehnlichhoch--;
-	b1feierabendzeit--;
-	
-	b2ungewoehnlichhoch--;
-	b2feierabendzeit--;
-	
-	r1ungewoehnlichhoch--;
-	r1feierabendzeit--;
-	
-	r2ungewoehnlichhoch--;
-	r2feierabendzeit--;
+		/*Max Zeiten*/
+		s1ungewoehnlichhoch--;
+		s1feierabendzeit--;
+		
+		b1ungewoehnlichhoch--;
+		b1feierabendzeit--;
+		
+		b2ungewoehnlichhoch--;
+		b2feierabendzeit--;
+		
+		r1ungewoehnlichhoch--;
+		r1feierabendzeit--;
+		
+		r2ungewoehnlichhoch--;
+		r2feierabendzeit--;
 	
 		int i;
 		
@@ -265,7 +273,7 @@ int main(int argc, char *argv[]) {
 			
 			
 			cursorSetzen(hStdout, 0, 1); /* setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */
-			printf( "10er-Karten:  5                                    ___Bergstation Schlange: %d\n"
+			printf( "\n10er-Karten:  5                                    ___Bergstation Schlange: %d\n"
 					"Tageskarten:  5                                   /        |    |  Lift ab: %d \n"
 					"Skifahrten:   77                                 /        /     |\n"
 					"                                                -        /      |\n"
