@@ -1,4 +1,3 @@
-test
 
 funktionstyp funktionInCamelCase(parameter, parameter)
 {
