@@ -63,8 +63,104 @@ int zehnerkarten, tageskarten,
 	schlangenlaenge_tal, schlangenlaenge_berg, schlangenlaenge_mitte_hoch, schlangenlaenge_mitte_runter, 
 	anzahl_tal_zu_mitte, anzahl_mitte_zu_berg, anzahl_berg_zu_mitte, anzahl_mitte_zu_tal,
 	anzahl_S1, anzahl_B2, anzahl_R2, anzahl_B1, anzahl_R1, 
-	minuten, loop_anzahl;
+	minuten, loop_anzahl,
+	S1randZeit, S1feierabendzeit, S1ungewoehnlichhoch, S1reverseminute,
+	B1randZeit, B1feierabendzeit, B1ungewoehnlichhoch, B1reverseminute,
+	B2randZeit, B2feierabendzeit, B2ungewoehnlichhoch, B2reverseminute,
+	R1randZeit, R1feierabendzeit, R1ungewoehnlichhoch, R1reverseminute,
+	R2randZeit, R2feierabendzeit, R2ungewoehnlichhoch, R2reverseminute;
 
+		/*Randomzeit für die S1*/
+		void getS1time(){
+		if(S1reverseminute <= 9)
+		{
+			/*deaktiviert switch case*/
+			/*printf("S1 ist Geschlossen");*/
+			S1randZeit = 0;
+		} else if(S1reverseminute <= 59)
+		{
+			S1randZeit = (rand() % S1feierabendzeit)+9;
+		} else if(rand() % 100 > 10){
+			S1randZeit = (rand() % 51)+9;/*Zufällige zeit zwischen 9 und 59*/
+		}else{
+			S1randZeit = (rand() % S1ungewoehnlichhoch)+59;
+				
+		}
+		}
+		
+		/*Randomzeit für die B1*/
+		void getB1time(){
+		if(B1reverseminute <= 3)
+		{
+			/*deaktiviert switch case*/
+			/*printf("B1 ist Geschlossen");*/
+			B1randZeit = 0;
+		} else if(B1reverseminute <= 23)
+		{
+			B1randZeit = (rand() % B1feierabendzeit)+3;
+		} else if(rand() % 100 > 10){
+			B1randZeit = (rand() % 21)+3;/*Zufällige zeit zwischen 3 und 24*/
+		}else{
+			B1randZeit = (rand() % B1ungewoehnlichhoch)+23;
+				
+		}
+		}
+		
+		/*Randomzeit für die B2*/
+		void getB2time(){	
+		if(B2reverseminute <= 5)
+		{
+			/*deaktiviert switch case*/
+			/*printf("B2 ist Geschlossen");*/
+			B2randZeit = 0;
+		} else if(B2reverseminute <= 42)
+		{
+			B2randZeit = (rand() % B2feierabendzeit)+5;
+		} else if(rand() % 100 > 10){
+			B2randZeit = (rand() % 38)+5;/*Zufällige zeit zwischen 5 und 42*/
+		}else{
+			B2randZeit = (rand() % B2ungewoehnlichhoch)+42;
+				
+		}	
+		}
+		
+		/*Randomzeit für die R1*/
+		void getR1time(){		
+		if(R1reverseminute <= 3)
+		{
+			/*deaktiviert switch case*/
+			/*printf("R1 ist Geschlossen");*/
+			R1randZeit = 0;
+		} else if(R1reverseminute <= 20)
+		{
+			R1randZeit = (rand() % R1feierabendzeit)+3;
+		} else if(rand() % 100 > 10){
+			R1randZeit = (rand() % 18)+3;/*Zufällige zeit zwischen 3 und 20*/
+		}else{
+			R1randZeit = (rand() % R1ungewoehnlichhoch)+20;
+				
+		}
+		}
+		
+		/*Randomzeit für die R2*/
+		void getR2time(){			
+		if(R2reverseminute <= 3)
+		{
+			/*deaktiviert switch case*/
+			/*printf("R2 ist Geschlossen");*/
+			R2randZeit = 0;
+		} else if(R2reverseminute <= 37)
+		{
+			R2randZeit = (rand() % R2feierabendzeit)+3;
+		} else if(rand() % 100 > 10){
+			R2randZeit = (rand() % 35)+3;/*Zufällige zeit zwischen 3 und 38*/
+		}else{
+			R2randZeit = (rand() % R2ungewoehnlichhoch)+37;
+				
+		}
+		}
+	
+	
 int main(int argc, char *argv[]) {
 	
 	cursorVerstecken();
@@ -99,6 +195,32 @@ int main(int argc, char *argv[]) {
 	
 	tal_zu_mitte(skifahrer_liste[0], lift_liste[0]);
 	printf("%d", skifahrer_liste[0].aktuelle_position); /*die Position ändert sich nur während der funktion, nicht permanent */
+	/*Variabeln für S1*/
+		S1randZeit = 0;
+		S1feierabendzeit =770;
+		S1ungewoehnlichhoch = 720;
+		S1reverseminute = 780;
+		
+		/*Variabeln für B1*/
+		B1randZeit = 0;
+		B1feierabendzeit =776;
+		B1ungewoehnlichhoch = 758;
+		B1reverseminute = 780;
+		/*Variabeln für B2*/
+		B2randZeit = 0;
+		B2feierabendzeit =774;
+		B2ungewoehnlichhoch = 737;
+		B2reverseminute = 780;
+		/*Variabeln für R1*/
+		R1randZeit = 0;
+		R1feierabendzeit =776;
+		R1ungewoehnlichhoch = 759;
+		R1reverseminute = 780;
+		/*Variabeln für R2*/
+		R2randZeit = 0;
+		R2feierabendzeit =775;
+		R2ungewoehnlichhoch = 743;
+		R2reverseminute = 780;
 	/* loop läuft bis 1320 Minuten, also bis 22:00 Uhr */
 	while(minuten <= 1320)
 	{
@@ -111,159 +233,42 @@ int main(int argc, char *argv[]) {
 			6. Guck, ob du eventuell eine Möglichkeit findest, das ganze kürzer zu svhreiben. Soll heißen, dass du nicht 5 mal die gleiche Verzweigung nur mit anderen Werten in den Code schreiben musst.
 			   Falls das nicht geht, ist es auch okay.
 			7. Falls dev-c++ dich irgendwas wegen "utf-8 encoding" oder ähnliches beim Speichern fragt, klick auf ja. Kann sein, dass du das schon machst, ich hatte jedenfalls jetzt zwei mal das Problem,
-			   dass sich Dateien nicht mehr öffnen ließen, weil die Umlaute kaputt waren. Eventuell lags daran. 
-		/*Variabeln für S1*/
-		int randS1Zeit, s1feierabendzeit, s1ungewoehnlichhoch, reverseminuteS1;
-		randS1Zeit = 0;
-		s1feierabendzeit =770;
-		s1ungewoehnlichhoch = 720;
-		reverseminuteS1 = 780;
-		
-		/*Variabeln für B1*/
-		int randB1Zeit;
-		randB1Zeit = 0;
-		int b1feierabendzeit;
-		b1feierabendzeit =776;
-		int b1ungewoehnlichhoch;
-		b1ungewoehnlichhoch = 758;
-		int reverseminuteb1;
-		reverseminuteb1 = 780;
-		/*Variabeln für B2*/
-		int randB2Zeit;
-		randB2Zeit = 0;
-		int b2feierabendzeit;
-		b2feierabendzeit =774;
-		int b2ungewoehnlichhoch;
-		b2ungewoehnlichhoch = 737;
-		int reverseminuteb2;
-		reverseminuteb2 = 780;
-		/*Variabeln für R1*/
-		int randR1Zeit;
-		randR1Zeit = 0;
-		int r1feierabendzeit;
-		r1feierabendzeit =776;
-		int r1ungewoehnlichhoch;
-		r1ungewoehnlichhoch = 759;
-		int reverseminuter1;
-		reverseminuter1 = 780;
-		/*Variabeln für R2*/
-		int randR2Zeit;
-		randR2Zeit = 0;
-		int r2feierabendzeit;
-		r2feierabendzeit =775;
-		int r2ungewoehnlichhoch;
-		r2ungewoehnlichhoch = 743;
-		int reverseminuter2;
-		reverseminuter2 = 780;
+			   dass sich Dateien nicht mehr öffnen ließen, weil die Umlaute kaputt waren. Eventuell lags daran.*/
+
 	
-		
-		/*Randomzeit für die S1*/
-		
-		if(reverseminuteS1 <= 9)
-		{
-			/*deaktiviert switch case*/
-			/*printf("S1 ist Geschlossen");*/
-			randS1Zeit = 0;
-		} else if(reverseminuteS1 <= 59)
-		{
-			randS1Zeit = (rand() % s1feierabendzeit)+9;
-		} else if(rand() % 100 > 10){
-			randS1Zeit = (rand() % 51)+9;/*Zufällige zeit zwischen 9 und 59*/
-		}else{
-			randS1Zeit = (rand() % s1ungewoehnlichhoch)+59;
-				
-		}
-		/*Randomzeit für die B1*/
-		
-		if(reverseminuteb1 <= 3)
-		{
-			/*deaktiviert switch case*/
-			/*printf("B1 ist Geschlossen");*/
-			randB1Zeit = 0;
-		} else if(reverseminuteb1 <= 23)
-		{
-			randB1Zeit = (rand() % b1feierabendzeit)+3;
-		} else if(rand() % 100 > 10){
-			randB1Zeit = (rand() % 21)+3;/*Zufällige zeit zwischen 3 und 24*/
-		}else{
-			randB1Zeit = (rand() % b1ungewoehnlichhoch)+23;
-				
-		}
-			/*Randomzeit für die B2*/
-			
-		if(reverseminuteb2 <= 5)
-		{
-			/*deaktiviert switch case*/
-			/*printf("B2 ist Geschlossen");*/
-			randB2Zeit = 0;
-		} else if(reverseminuteb2 <= 42)
-		{
-			randB2Zeit = (rand() % b2feierabendzeit)+5;
-		} else if(rand() % 100 > 10){
-			randB2Zeit = (rand() % 38)+5;/*Zufällige zeit zwischen 5 und 42*/
-		}else{
-			randB2Zeit = (rand() % b2ungewoehnlichhoch)+42;
-				
-		}	
-				/*Randomzeit für die R1*/
-				
-		if(reverseminuter1 <= 3)
-		{
-			/*deaktiviert switch case*/
-			/*printf("R1 ist Geschlossen");*/
-			randR1Zeit = 0;
-		} else if(reverseminuter1 <= 20)
-		{
-			randR1Zeit = (rand() % r1feierabendzeit)+3;
-		} else if(rand() % 100 > 10){
-			randR1Zeit = (rand() % 18)+3;/*Zufällige zeit zwischen 3 und 20*/
-		}else{
-			randR1Zeit = (rand() % r1ungewoehnlichhoch)+20;
-				
-		}	
-					/*Randomzeit für die R2*/
-					
-						if(reverseminuter2 <= 3)
-		{
-			/*deaktiviert switch case*/
-			/*printf("R2 ist Geschlossen");*/
-			randR2Zeit = 0;
-		} else if(reverseminuter2 <= 37)
-		{
-			randR2Zeit = (rand() % r2feierabendzeit)+3;
-		} else if(rand() % 100 > 10){
-			randR2Zeit = (rand() % 35)+3;/*Zufällige zeit zwischen 3 und 38*/
-		}else{
-			randR2Zeit = (rand() % r2ungewoehnlichhoch)+37;
-				
-		}	
+		getS1time();
+		getB1time();
+		getB2time();	
+		getR1time();	
+		getR2time();
+	
 	/*	Zu testzwecken */
-		printf("%d\t\t %d\n", randS1Zeit, reverseminuteS1);
-		printf("%d\n", randB1Zeit);
-		printf("%d\n", randB2Zeit);
-		printf("%d\n", randR1Zeit);
-		printf("%d\n", randR2Zeit);
+		printf("%d\t\t %d\n", S1randZeit, S1reverseminute);
+		printf("%d\n", B1randZeit);
+		printf("%d\n", B2randZeit);
+		printf("%d\n", R1randZeit);
+		printf("%d\n", R2randZeit);
 		/*Aktivierungszeiten*/
-		reverseminuteS1--;
-		reverseminuteb1--;
-		reverseminuteb2--;
-		reverseminuter1--;
-		reverseminuter2--;
+		S1reverseminute--;
+		B1reverseminute--;
+		B2reverseminute--;
+		R1reverseminute--;
+		R2reverseminute--;
 		/*Max Zeiten*/
-		s1ungewoehnlichhoch--;
-		s1feierabendzeit--;
+		S1ungewoehnlichhoch--;
+		S1feierabendzeit--;
 		
-		b1ungewoehnlichhoch--;
-		b1feierabendzeit--;
+		B1ungewoehnlichhoch--;
+		B1feierabendzeit--;
 		
-		b2ungewoehnlichhoch--;
-		b2feierabendzeit--;
+		B2ungewoehnlichhoch--;
+		B2feierabendzeit--;
 		
-		r1ungewoehnlichhoch--;
-		r1feierabendzeit--;
+		R1ungewoehnlichhoch--;
+		R1feierabendzeit--;
 		
-		r2ungewoehnlichhoch--;
-		r2feierabendzeit--;
+		R2ungewoehnlichhoch--;
+		R2feierabendzeit--;
 	
 		int i;
 		
