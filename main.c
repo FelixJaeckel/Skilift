@@ -24,7 +24,7 @@ struct Lift;
 
 int cursorSetzen(HANDLE, unsigned short, unsigned short);
 void uhrzeitAnpassen(int);
-void uhrzeitAusgeben(struct Uhrzeit);
+/*void uhrzeitAusgeben(struct Uhrzeit);*/
 void cursorVerstecken();
 void tal_zu_mitte(struct Skifahrer, struct Lift);
 void positionen_checken(struct Skifahrer);
@@ -59,9 +59,8 @@ Lift lift_liste[110]; /* evtl sollte man für die stationen mit nem pointer auf 
 						d.h. tal_schlange zeigt auf lift_liste[0] und dann wird immer nur der Wert von lift_liste[0] geändert.
 						Dementsprechend gibt es keine warteschlangen arrays mehr */
 
-int zehnerkarten, tageskarten,
-	schlangenlaenge_tal, schlangenlaenge_berg, schlangenlaenge_mitte_hoch, schlangenlaenge_mitte_runter, 
-	anzahl_tal_zu_mitte, anzahl_mitte_zu_berg, anzahl_berg_zu_mitte, anzahl_mitte_zu_tal,
+int zehnerkarten, schlangenlaenge_berg, tageskarten, schlangenleange_berg, lift_berg_ab, skifahrten, anzahl_berg_zu_mitte, B2Piste, R2Piste, anzahl_mitte_zu_berg, bistro, anzahl_mitte_zu_tal, anzahl_tal_zu_mitte, B1Piste, R1Piste, S1Piste, lift_tal_auf, schlangenlaenge_tal, haltestelle, personen_auf_berg, parkende_wagen,
+	schlangenlaenge_mitte_hoch, schlangenlaenge_mitte_runter, 
 	anzahl_S1, anzahl_B2, anzahl_R2, anzahl_B1, anzahl_R1, 
 	minuten, loop_anzahl,
 	S1randZeit, S1feierabendzeit, S1ungewoehnlichhoch, S1reverseminute,
@@ -172,7 +171,7 @@ int main(int argc, char *argv[]) {
 		minuten, loop_anzahl;
 		*/
 	char input;
-	input = NULL;
+	/*input = NULL;*/
 
 	
 	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); /* wird fuer cursorSetzen() benoetigt */
@@ -235,7 +234,7 @@ int main(int argc, char *argv[]) {
 			7. Falls dev-c++ dich irgendwas wegen "utf-8 encoding" oder ähnliches beim Speichern fragt, klick auf ja. Kann sein, dass du das schon machst, ich hatte jedenfalls jetzt zwei mal das Problem,
 			   dass sich Dateien nicht mehr öffnen ließen, weil die Umlaute kaputt waren. Eventuell lags daran.*/
 
-	
+	/*funktionen f�r pisten zeiten*/
 		getS1time();
 		getB1time();
 		getB2time();	
@@ -278,30 +277,30 @@ int main(int argc, char *argv[]) {
 			
 			
 			cursorSetzen(hStdout, 0, 1); /* setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */
-			printf( "\n10er-Karten:  5                                    ___Bergstation Schlange: %d\n"
-					"Tageskarten:  5                                   /        |    |  Lift ab: %d \n"
-					"Skifahrten:   77                                 /        /     |\n"
+			printf( "\n10er-Karten:  %03.d                                    ___Bergstation Schlange: %03.d\n"
+					"Tageskarten:  %03.d                                   /        |    |  Lift ab: %03.d \n"
+					"Skifahrten:   %03.d                                 /        /     |\n"
 					"                                                -        /      |\n"
 					"                                               /        |       |\n"
-					"Lift M<>B:  22                               B2:  6   R2:   8  /\n"
+					"Lift M<>B:  %03.d                        B2:  %03.d   R2:   %03.d  /\n"
 					"                                             /        /       /\n"
 					"                                         ----        |       /\n"
-					"                                        /           /       /       Lift auf:  1\n"
+					"                                        /           /       /       Lift auf:  %03.d\n"
 					"                                        Mittelstation      |\n"
-					"                                   _____Bistro:  7        /         Lift ab:   0\n"
+					"                                   _____Bistro:  %03.d        /         Lift ab:   %03.d\n"
 					"                                  /       \\             |\n"
 					"                                  \\        |           /\n"
-					"Lift T<>M:  14                   B1:  4    R1: 12     S1:  5\n"
+					"Lift T<>M:  %03.d                   B1:  %03.d    R1: %03.d     S1:  %03.d\n"
 					"                                   \\        \\        /\n"
-					"                                    \\       /       /           Lift auf:  %d\n"
-					"                                     ----Talstation Schlange: %d\n"
-					"  :   Uhr                               (H):  0\n"
-				   	"Personen auf Berg:  83                  [P]:  1 Auto\n"
+					"                                    \\       /       /           Lift auf:  %03.d\n"
+					"                                     ----Talstation Schlange: %03.d\n"
+					"  %02.d:%02.d   Uhr                               (H):  %03.d\n"
+				   	"Personen auf Berg:  %03.d                  [P]:  %03.d Auto\n"
 					"...(T)urbo\n"
 					"...(P)ause"                                                
-					, schlangenlaenge_berg, anzahl_berg_zu_mitte, anzahl_tal_zu_mitte, schlangenlaenge_tal);
+					, zehnerkarten, schlangenlaenge_berg, tageskarten, schlangenleange_berg, lift_berg_ab, skifahrten, anzahl_berg_zu_mitte, B2Piste, R2Piste, anzahl_mitte_zu_berg, bistro, anzahl_mitte_zu_tal, anzahl_tal_zu_mitte, uhrzeit.stunde, uhrzeit.minute, B1Piste, R1Piste, S1Piste, lift_tal_auf, schlangenlaenge_tal, haltestelle, personen_auf_berg, parkende_wagen);
 			
-			uhrzeitAusgeben(uhrzeit); /* uhrzeit hat ein paar Eigenheiten, weswegen sie eine extrafunktion zum printen kriegt */
+			/*uhrzeitAusgeben(uhrzeit);  uhrzeit hat ein paar Eigenheiten, weswegen sie eine extrafunktion zum printen kriegt */
 			
 			/* nur zu testzwecken hier */
 			
@@ -312,13 +311,13 @@ int main(int argc, char *argv[]) {
 
 		Sleep(1000); /* wartet eine sekunde */  
 	
-		input = NULL;
+		/*input = NULL;*/
 		if (kbhit()) /* checkt, ob Taste gedrückt wurde */
 		{
 	        input = tolower(getch()); // Benutzereingabe lesen	
 			fflush(stdout);	
 		} else {
-			input = NULL;
+			/*input = NULL;*/
 		}
 
 
@@ -381,12 +380,13 @@ void uhrzeitAnpassen(int minuten)
 }
 
 
-/* sorgt dafür, dass uhrzeit immer mit zwei Ziffern vor und hinter dem Doppelpunkt ausgegeben wird */
+/* sorgt dafür, dass uhrzeit immer mit zwei Ziffern vor und hinter dem Doppelpunkt ausgegeben wird 
 void uhrzeitAusgeben(Uhrzeit uhrzeit)
 {
-	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); /* wird fuer cursorSetzen() benoetigt */
+	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); */
+	/* wird fuer cursorSetzen() benoetigt */
 
-	/* packt 0 vor die Stunde wenn es um 9 ist, ansonsten wird die Stunde einfach nur geprintet */
+	/* packt 0 vor die Stunde wenn es um 9 ist, ansonsten wird die Stunde einfach nur geprintet 
 	cursorSetzen(hStdout, 0, 17);	
 	if (uhrzeit.stunde == 9) 
 	{
@@ -395,9 +395,9 @@ void uhrzeitAusgeben(Uhrzeit uhrzeit)
 	else 
 	{
 		printf("%i", uhrzeit.stunde);
-	}
+	}*/
 	
-	/* packt 0 vor einstellige Minuten */
+	/* packt 0 vor einstellige Minuten 
 	cursorSetzen(hStdout, 3, 17);	
 	if (uhrzeit.minute >= 10) 
 	{
@@ -408,7 +408,7 @@ void uhrzeitAusgeben(Uhrzeit uhrzeit)
 		printf("0%i", uhrzeit.minute);
 	} 
 	return;
-}
+}*/
 
 /* ziel ist später, eine allgemeine Funktion zum Einsteigen in den Lift zu haben. Das hier ist nur provisorisch da */
 void tal_zu_mitte(Skifahrer skifahrer1, Lift lift1)
