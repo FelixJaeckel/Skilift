@@ -68,7 +68,25 @@ int zehnerkarten, schlangenlaenge_berg, tageskarten, schlangenleange_berg, lift_
 	B2randZeit, B2feierabendzeit, B2ungewoehnlichhoch, B2reverseminute,
 	R1randZeit, R1feierabendzeit, R1ungewoehnlichhoch, R1reverseminute,
 	R2randZeit, R2feierabendzeit, R2ungewoehnlichhoch, R2reverseminute;
-
+	int zehnerkarten, bergstation_lift, tageskarten;
+	int PersonenGesamtaufBerg, VerkaufteZehnerKarten, VerkaufteTageskarten, Skifarten, SchneedorfGaesteAufDerPiste, ParkendeWagen, BuseDieHeuteDaWaren; // Menu Counters
+	char* Busn;
+	char* Leer1;//Tabelle Puffer Veriabelen
+	char* Leer2;
+	char* Leer3;
+	char* Leer4;
+	char* Leer5;
+	char* Leer6;
+	char* Leer7;
+	zehnerkarten = 15;
+	bergstation_lift = 2;
+	tageskarten = 51;
+	VerkaufteZehnerKarten = -1;
+	VerkaufteTageskarten = 0;
+	Skifarten = 0;
+	SchneedorfGaesteAufDerPiste = 0;
+	ParkendeWagen = 0;
+	BuseDieHeuteDaWaren = 0;
 		/*Randomzeit fÃ¼r die S1*/
 		void getS1time(){
 		if(S1reverseminute <= 9)
@@ -162,7 +180,6 @@ int zehnerkarten, schlangenlaenge_berg, tageskarten, schlangenleange_berg, lift_
 	
 int main(int argc, char *argv[]) {
 	
-	cursorVerstecken();
 	/*
 	int zehnerkarten, tageskarten,
 		schlangenlaenge_tal, schlangenlaenge_berg, schlangenlaenge_mitte_hoch, schlangenlaenge_mitte_runter, 
@@ -296,9 +313,26 @@ int main(int argc, char *argv[]) {
 					"                                     ----Talstation Schlange: %03.d\n"
 					"  %02.d:%02.d   Uhr                               (H):  %03.d\n"
 				   	"Personen auf Berg:  %03.d                  [P]:  %03.d Auto\n"
-					"...(T)urbo\n"
-					"...(P)ause"                                                
-					, zehnerkarten, schlangenlaenge_berg, tageskarten, schlangenleange_berg, lift_berg_ab, skifahrten, anzahl_berg_zu_mitte, B2Piste, R2Piste, anzahl_mitte_zu_berg, bistro, anzahl_mitte_zu_tal, anzahl_tal_zu_mitte, uhrzeit.stunde, uhrzeit.minute, B1Piste, R1Piste, S1Piste, lift_tal_auf, schlangenlaenge_tal, haltestelle, personen_auf_berg, parkende_wagen);
+									"\n                  ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»                "
+		"\n  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄº                                          ºÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿"
+		"\n  ³               º      %sbersicht %sber den Berg             º               ³"
+		"\n  ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄº                                          ºÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´"
+		"\n  ³               ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼               ³"
+		"\n  ³                    ³           Allgemeine Zahlen:                        ³"
+		"\n  ³                    ³          Personen auf Berg:  %d%s                   ³"
+		"\n  ³                    ³          10er-Karten:  %d%s                         ³"
+		"\n  ³                    ³          Tageskarten: %d%s                          ³"
+		"\n  ³                    ³          Skifahrten:   %d%s                         ³"
+		"\n  ³                    ³          Schneedorf Besucher:   %d%s                ³"
+		"\n  ³                    ³          Parkende Wagen:  %d Auto %s                ³"
+		"\n  ³                    ³          Busse an diesem Tag:  %d  %s               ³"
+		"\n  ³                    ³          %s                                        ³"
+		"\n  ³                    ³          M%sgliche Eingaben:                         ³"
+		"\n  ³                    ³          (T)urbo                                    ³"
+		"\n  ³                    ³          (P)ause                                    ³"
+		"\n  ³                    ³          (0)  Programmende                          ³"
+		"\n  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ"                                                
+					, zehnerkarten, schlangenlaenge_berg, tageskarten, schlangenleange_berg, lift_berg_ab, skifahrten, anzahl_berg_zu_mitte, B2Piste, R2Piste, anzahl_mitte_zu_berg, bistro, anzahl_mitte_zu_tal, anzahl_tal_zu_mitte, uhrzeit.stunde, uhrzeit.minute, B1Piste, R1Piste, S1Piste, lift_tal_auf, schlangenlaenge_tal, haltestelle, personen_auf_berg, parkende_wagen,  PersonenGesamtaufBerg, Leer1, VerkaufteZehnerKarten, Leer2, VerkaufteTageskarten, Leer3, Skifarten, Leer4, SchneedorfGaesteAufDerPiste, Leer5, ParkendeWagen, Leer6, BuseDieHeuteDaWaren, Leer7, Busn, "\x94");
 			
 			/*uhrzeitAusgeben(uhrzeit);  uhrzeit hat ein paar Eigenheiten, weswegen sie eine extrafunktion zum printen kriegt */
 			
