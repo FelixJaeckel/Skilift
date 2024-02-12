@@ -390,13 +390,13 @@ void getS1time()
 		/*deaktiviert switch case*/
 		/*printf("S1 ist Geschlossen");*/
 		S1randZeit = 0;
-	} else if(S1reverseminute <= 59)
+	} else if(S1reverseminute <= 39)
 	{
 		S1randZeit = (rand() % S1feierabendzeit)+9;
 	} else if(rand() % 100 > 10){
-		S1randZeit = (rand() % 51)+9;/*Zufällige zeit zwischen 9 und 59*/
+		S1randZeit = (rand() % 31)+9;/*Zufällige zeit zwischen 9 und 59*/
 	}else{
-		S1randZeit = (rand() % S1ungewoehnlichhoch)+59;
+		S1randZeit = (rand() % S1ungewoehnlichhoch)+39;
 			
 	}
 }
@@ -409,13 +409,13 @@ void getB1time()
 		/*deaktiviert switch case*/
 		/*printf("B1 ist Geschlossen");*/
 		B1randZeit = 0;
-	} else if(B1reverseminute <= 23)
+	} else if(B1reverseminute <= 18)
 	{
 		B1randZeit = (rand() % B1feierabendzeit)+3;
 	} else if(rand() % 100 > 10){
-		B1randZeit = (rand() % 21)+3;/*Zufällige zeit zwischen 3 und 24*/
+		B1randZeit = (rand() % 16)+3;/*Zufällige zeit zwischen 3 und 24*/
 	} else {
-		B1randZeit = (rand() % B1ungewoehnlichhoch)+23;
+		B1randZeit = (rand() % B1ungewoehnlichhoch)+18;
 	}
 }
 	
@@ -427,13 +427,13 @@ void getB2time()
 		/*deaktiviert switch case*/
 		/*printf("B2 ist Geschlossen");*/
 		B2randZeit = 0;
-	} else if(B2reverseminute <= 42)
+	} else if(B2reverseminute <= 32)
 	{
 		B2randZeit = (rand() % B2feierabendzeit)+5;
 	} else if(rand() % 100 > 10){
-		B2randZeit = (rand() % 38)+5;/*Zufällige zeit zwischen 5 und 42*/
+		B2randZeit = (rand() % 28)+5;/*Zufällige zeit zwischen 5 und 42*/
 	} else {
-		B2randZeit = (rand() % B2ungewoehnlichhoch)+42;
+		B2randZeit = (rand() % B2ungewoehnlichhoch)+32;
 			
 	}	
 }
@@ -446,13 +446,13 @@ void getR1time()
 		/*deaktiviert switch case*/
 		/*printf("R1 ist Geschlossen");*/
 		R1randZeit = 0;
-	} else if(R1reverseminute <= 20)
+	} else if(R1reverseminute <= 15)
 	{
 		R1randZeit = (rand() % R1feierabendzeit)+3;
 	} else if(rand() % 100 > 10){
-		R1randZeit = (rand() % 18)+3;/*Zufällige zeit zwischen 3 und 20*/
+		R1randZeit = (rand() % 13)+3;/*Zufällige zeit zwischen 3 und 20*/
 	} else {
-		R1randZeit = (rand() % R1ungewoehnlichhoch)+20;
+		R1randZeit = (rand() % R1ungewoehnlichhoch)+15;
 			
 	}
 }
@@ -464,13 +464,13 @@ void getR2time(){
 		/*deaktiviert switch case*/
 		/*printf("R2 ist Geschlossen");*/
 		R2randZeit = 0;
-	} else if(R2reverseminute <= 37)
+	} else if(R2reverseminute <= 27)
 	{
 		R2randZeit = (rand() % R2feierabendzeit)+3;
 	} else if(rand() % 100 > 10){
-		R2randZeit = (rand() % 35)+3;/*Zufällige zeit zwischen 3 und 38*/
+		R2randZeit = (rand() % 25)+3;/*Zufällige zeit zwischen 3 und 38*/
 	}else{
-		R2randZeit = (rand() % R2ungewoehnlichhoch)+37;
+		R2randZeit = (rand() % R2ungewoehnlichhoch)+27;
 			
 	}
 }

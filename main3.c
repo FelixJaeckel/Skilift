@@ -142,13 +142,13 @@ PersonenGesamtaufBerg = i;
     }
 	
 
-/*array ausgabe zu Testzwecken*/
+/*array ausgabe zu Testzwecken
 for (int i = 0; i < arraySize; i++) 
 {
     printf("Element %d: value = %d, attribute1 = %d, attribute2 = %d, attribute3 = %d\n", i, arr[i].value, arr[i].attribute1, arr[i].attribute2, arr[i].attribute3);
 }*/
 /**/
-Legende für array verteilung
+/*Legende für array verteilung
 Wert= Nummer des Skifahrers
 attribut1= Herkunft des Skifaheres
 attribut2= Derzeitiger aufentaltsort
@@ -163,7 +163,7 @@ attribut1:
 
 attribut2:
 
-/*Pisten*
+Pisten*
 1= B1
 2= B2
 usw.

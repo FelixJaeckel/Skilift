@@ -210,7 +210,7 @@ void uhrzeitAusgeben(Uhrzeit uhrzeit)
 
 /* Portenzelle Schon vorbereiteter Code Falls er noch verwennendbar ist */
 /* Vorbereitete Skilift Variabeln */
-int piste_B1, B2, R1, R2, S1;//Pisten
+/*int piste_B1, B2, R1, R2, S1;//Pisten
 int WarteschlangeBergstationAbwaerz, WarteschlangeMittelstationAufwaerz, WarteschlangeMittelstationAbwaerz , WarteschlangeTalstationAufwaerz;//Warteschlangen
 int LiftfahrerMittelstationBergstation, LiftfahrerTalstationMittelstation;//Liftbenutzer
 int BistroGaeste;//Bistro
@@ -227,7 +227,7 @@ LiftfahrerMittelstationBergstation = 0;
 LiftfahrerTalstationMittelstation = 0;
 BistroGaeste = 0;
 
-/* Busankunft & Abfahrten */
+ Busankunft & Abfahrten 
 
 if (uhrzeit.minute == 10 ||uhrzeit.minute == 30 ||uhrzeit.minute == 50)
 {

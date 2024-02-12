@@ -78,15 +78,7 @@ int zehnerkarten, schlangenlaenge_berg, tageskarten, schlangenleange_berg, lift_
 	char* Leer5;
 	char* Leer6;
 	char* Leer7;
-	zehnerkarten = 15;
-	bergstation_lift = 2;
-	tageskarten = 51;
-	VerkaufteZehnerKarten = -1;
-	VerkaufteTageskarten = 0;
-	Skifarten = 0;
-	SchneedorfGaesteAufDerPiste = 0;
-	ParkendeWagen = 0;
-	BuseDieHeuteDaWaren = 0;
+
 		/*Randomzeit fÃ¼r die S1*/
 		void getS1time(){
 		if(S1reverseminute <= 9)
@@ -179,7 +171,37 @@ int zehnerkarten, schlangenlaenge_berg, tageskarten, schlangenleange_berg, lift_
 	
 	
 int main(int argc, char *argv[]) {
+
+	/* Variablen zu Testzwecken */
 	
+	zehnerkarten = 15;
+	schlangenlaenge_berg = 0;
+	tageskarten = 51;
+	lift_berg_ab = 2;
+	skifahrten = 0;
+	anzahl_berg_zu_mitte = 0;
+	B2Piste = 0;
+	R2Piste = 0;
+	anzahl_mitte_zu_berg = 0;
+	bistro = 0;
+	anzahl_mitte_zu_tal = 0;
+	anzahl_tal_zu_mitte = 0;
+	B1Piste = 0;
+	R1Piste = 0;
+	S1Piste = 0;
+	lift_tal_auf = 0;
+	schlangenlaenge_tal = 0;
+	haltestelle = 0;
+	personen_auf_berg = 0;
+	parkende_wagen = 0;
+	PersonenGesamtaufBerg = 0;
+	VerkaufteZehnerKarten = -1;
+	VerkaufteTageskarten = 0;
+	Skifarten = 0;
+	SchneedorfGaesteAufDerPiste = 0;
+	ParkendeWagen = 0;
+	BuseDieHeuteDaWaren = 0;
+
 	/*
 	int zehnerkarten, tageskarten,
 		schlangenlaenge_tal, schlangenlaenge_berg, schlangenlaenge_mitte_hoch, schlangenlaenge_mitte_runter, 
@@ -199,9 +221,7 @@ int main(int argc, char *argv[]) {
 	
 	loop_anzahl = 1; /* bestimmt, wie oft pro Sekunde der Hauptloop durchlaufen wird. Standardwert ist 1, Turbo ist 10, Pause ist 0 */
 	
-	/* Variablen zu Testzwecken */
-	schlangenlaenge_tal = 1;
-	schlangenlaenge_berg = 0;
+
 	
 	/* einzelner Skifahrer zu testzwecken */
 	skifahrer_liste[0].ankunftsart = 0;
@@ -210,7 +230,7 @@ int main(int argc, char *argv[]) {
 	skifahrer_liste[0].aktuelle_position = schlange_tal;	tal_warteschlange[0] = skifahrer_liste[0];
 	
 	tal_zu_mitte(skifahrer_liste[0], lift_liste[0]);
-	printf("%d", skifahrer_liste[0].aktuelle_position); /*die Position Ã¤ndert sich nur wÃ¤hrend der funktion, nicht permanent */
+	/*printf("%d", skifahrer_liste[0].aktuelle_position); die Position Ã¤ndert sich nur wÃ¤hrend der funktion, nicht permanent */
 	/*Variabeln fÃ¼r S1*/
 		S1randZeit = 0;
 		S1feierabendzeit =770;
@@ -258,12 +278,12 @@ int main(int argc, char *argv[]) {
 		getR1time();	
 		getR2time();
 	
-	/*	Zu testzwecken */
+	/*	Zu testzwecken 
 		printf("%d\t\t %d\n", S1randZeit, S1reverseminute);
 		printf("%d\n", B1randZeit);
 		printf("%d\n", B2randZeit);
 		printf("%d\n", R1randZeit);
-		printf("%d\n", R2randZeit);
+		printf("%d\n", R2randZeit);*/
 		/*Aktivierungszeiten*/
 		S1reverseminute--;
 		B1reverseminute--;
@@ -313,27 +333,32 @@ int main(int argc, char *argv[]) {
 					"                                     ----Talstation Schlange: %03.d\n"
 					"  %02.d:%02.d   Uhr                               (H):  %03.d\n"
 				   	"Personen auf Berg:  %03.d                  [P]:  %03.d Auto\n"
-									"\n                  ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»                "
-		"\n  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄº                                          ºÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿"
-		"\n  ³               º      %sbersicht %sber den Berg             º               ³"
-		"\n  ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄº                                          ºÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´"
-		"\n  ³               ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼               ³"
-		"\n  ³                    ³           Allgemeine Zahlen:                        ³"
-		"\n  ³                    ³          Personen auf Berg:  %d%s                   ³"
-		"\n  ³                    ³          10er-Karten:  %d%s                         ³"
-		"\n  ³                    ³          Tageskarten: %d%s                          ³"
-		"\n  ³                    ³          Skifahrten:   %d%s                         ³"
-		"\n  ³                    ³          Schneedorf Besucher:   %d%s                ³"
-		"\n  ³                    ³          Parkende Wagen:  %d Auto %s                ³"
-		"\n  ³                    ³          Busse an diesem Tag:  %d  %s               ³"
-		"\n  ³                    ³          %s                                        ³"
-		"\n  ³                    ³          M%sgliche Eingaben:                         ³"
-		"\n  ³                    ³          (T)urbo                                    ³"
-		"\n  ³                    ³          (P)ause                                    ³"
-		"\n  ³                    ³          (0)  Programmende                          ³"
-		"\n  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ"                                                
-					, zehnerkarten, schlangenlaenge_berg, tageskarten, schlangenleange_berg, lift_berg_ab, skifahrten, anzahl_berg_zu_mitte, B2Piste, R2Piste, anzahl_mitte_zu_berg, bistro, anzahl_mitte_zu_tal, anzahl_tal_zu_mitte, uhrzeit.stunde, uhrzeit.minute, B1Piste, R1Piste, S1Piste, lift_tal_auf, schlangenlaenge_tal, haltestelle, personen_auf_berg, parkende_wagen,  PersonenGesamtaufBerg, Leer1, VerkaufteZehnerKarten, Leer2, VerkaufteTageskarten, Leer3, Skifarten, Leer4, SchneedorfGaesteAufDerPiste, Leer5, ParkendeWagen, Leer6, BuseDieHeuteDaWaren, Leer7, Busn, "\x94");
-			
+				"\n                  Ã‰ÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÂ»                "
+		"\n  ÃšÃ„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Âº                                          ÂºÃ„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Â¿"
+		"\n  Â³               Âº      Ãœbersicht Ã¼ber den Berg             Âº               Â³"
+		"\n  ÃƒÃ„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Âº                                          ÂºÃ„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Â´"
+		"\n  Â³               ÃˆÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÃÂ¼               Â³"
+		"\n  Â³                    Â³           Allgemeine Zahlen:                        Â³"
+		"\n  Â³                    Â³          Personen auf Berg:  %03.d%s                   Â³"
+		"\n  Â³                    Â³          10er-Karten:  %03.d%s                         Â³"
+		"\n  Â³                    Â³          Tageskarten: %03d%s                          Â³"
+		"\n  Â³                    Â³          Skifahrten:   %03d%s                         Â³"
+		"\n  Â³                    Â³          Schneedorf Besucher:   %03d%s                Â³"
+		"\n  Â³                    Â³          Parkende Wagen:  %03d Auto %s                Â³"
+		"\n  Â³                    Â³          Busse an diesem Tag:  %03d  %s               Â³"
+		"\n  Â³                    Â³          %s                                        Â³"
+		"\n  Â³                    Â³          M%sgliche Eingaben:                         Â³"
+		"\n  Â³                    Â³          (T)urbo                                    Â³"
+		"\n  Â³                    Â³          (P)ause                                    Â³"
+		"\n  Â³                    Â³          (0)  Programmende                          Â³"
+		"\n  Ã€Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„ÃÃ„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã™"                                               
+					, zehnerkarten, schlangenlaenge_berg, tageskarten, lift_berg_ab, skifahrten, anzahl_berg_zu_mitte, B2Piste, R2Piste, anzahl_mitte_zu_berg, bistro, anzahl_mitte_zu_tal, anzahl_tal_zu_mitte, 
+				 B1Piste, R1Piste, S1Piste, lift_tal_auf, schlangenlaenge_tal, uhrzeit.stunde, uhrzeit.minute, haltestelle, personen_auf_berg, parkende_wagen
+				 /* PersonenGesamtaufBerg, Leer1, VerkaufteZehnerKarten, Leer2, VerkaufteTageskarten, Leer3, Skifarten, Leer4, SchneedorfGaesteAufDerPiste, Leer5, ParkendeWagen, Leer6, BuseDieHeuteDaWaren, Leer7, Busn, "\x94"*/);
+	
+
+
+	
 			/*uhrzeitAusgeben(uhrzeit);  uhrzeit hat ein paar Eigenheiten, weswegen sie eine extrafunktion zum printen kriegt */
 			
 			/* nur zu testzwecken hier */
