@@ -55,7 +55,8 @@ int cursorSetzen(HANDLE, unsigned short, unsigned short);
 void cursorVerstecken();
 
 int zurueckAuf110(int);
-void SkifahrerListeMitDummysFuellen();
+void skifahrerListeMitDummysFuellen();
+void warteschlangenMitDummysFuellen();
 void positionenChecken();
 void zaehlvariablenAufNullSetzen();
 void getGesamtFahrten();
@@ -69,8 +70,9 @@ void mehrereSkifahrerErstellen(int);
 
 void liftBetretenTal(int);
 void liftBetretenBerg(int);
-void liftVerlassenTal(int);
-void liftVerlassenBerg(int);
+void uebrigeZeitImLiftSenken();
+//void liftVerlassenTal(int);
+//void liftVerlassenBerg(int);
 
 void warteschlangeBetretenTal(Skifahrer);
 void warteschlangeBetretenBerg(Skifahrer);
@@ -107,7 +109,7 @@ int zehnerkarten, tageskarten,
 Warteschlange warteschlange_tal[500];  
 Warteschlange warteschlange_berg[500];  
 Skifahrer skifahrer_liste[2010];
-Lift lift_liste[110]; 
+// Lift lift_liste[110]; 
 Uhrzeit uhrzeit;
 Skifahrer skifahrer_liste[2010];
 
@@ -115,7 +117,7 @@ Skifahrer skifahrer_liste[2010];
 int main(int argc, char *argv[]) {
 	
 	int lift_in_station_tal_index, lift_in_station_mitte_hoch_index, lift_in_station_berg_index, lift_in_station_mitte_runter_index;
-	skifahrer_liste_index = 1;
+	skifahrer_liste_index = 1; /* warum bei 1 starten? Weil 0 in c auch ein Standardwert für nicht definierte Werte ist und ich will eventuelle Ueberschneidungen damit vermeiden */
 	warteschlange_tal_index = 0;
 	warteschlange_berg_index = 0;
 	zehnerkarten = 0;
@@ -135,7 +137,9 @@ int main(int argc, char *argv[]) {
 //	Lift lift_in_station_berg         = lift_liste[lift_in_station_berg_index];
 //	Lift lift_in_station_mitte_runter = lift_liste[lift_in_station_mitte_runter_index];
 	
-	SkifahrerListeMitDummysFuellen();
+	skifahrerListeMitDummysFuellen();
+	warteschlangenMitDummysFuellen();
+	
 		
 	cursorVerstecken();
 	char input;
@@ -153,31 +157,31 @@ int main(int argc, char *argv[]) {
 	S1randZeit = 0;
 	S1feierabendzeit =770;
 	S1ungewoehnlichhoch = 720;
-	S1reverseminute = 780;
+	S1reverseminute = 7800;
 	
 	/*Variabeln für B1*/
 	B1randZeit = 0;
 	B1feierabendzeit =776;
 	B1ungewoehnlichhoch = 758;
-	B1reverseminute = 780;
+	B1reverseminute = 7800;
 	
 	/*Variabeln für B2*/
 	B2randZeit = 0;
 	B2feierabendzeit =774;
 	B2ungewoehnlichhoch = 737;
-	B2reverseminute = 780;
+	B2reverseminute = 7800;
 	
 	/*Variabeln für R1*/
 	R1randZeit = 0;
 	R1feierabendzeit =776;
 	R1ungewoehnlichhoch = 759;
-	R1reverseminute = 780;
+	R1reverseminute = 7800;
 	
 	/*Variabeln für R2*/
 	R2randZeit = 0;
 	R2feierabendzeit =775;
 	R2ungewoehnlichhoch = 743;
-	R2reverseminute = 780;
+	R2reverseminute = 7800;
 	
 	/* loop läuft bis 1320 Minuten, also bis 22:00 Uhr */
 	while(minuten <= 1320)
@@ -191,11 +195,12 @@ int main(int argc, char *argv[]) {
 			{
 				cursorSetzen(hStdout, 0, 0);
 				
-				liftVerlassenBerg(lift_in_station_berg_index);
-				liftVerlassenTal(lift_in_station_tal_index);		
+//				liftVerlassenBerg(lift_in_station_berg_index);
+//				liftVerlassenTal(lift_in_station_tal_index);		
 				
 				liftBetretenTal(lift_in_station_tal_index);
 				liftBetretenBerg(lift_in_station_berg_index);
+				uebrigeZeitImLiftSenken();
 				
 				
 				/* Liftbewegung */
@@ -209,9 +214,12 @@ int main(int argc, char *argv[]) {
 				lift_in_station_berg_index 		   = zurueckAuf110(lift_in_station_berg_index);
 				lift_in_station_mitte_runter_index = zurueckAuf110(lift_in_station_mitte_runter_index);			
 			}
+			
+			printf("\n fahrer_liste[30].pos: %3d", skifahrer_liste[12].aktuelle_position);
+			
 			uebrigeZeitAufPisteSenken();
 			positionenChecken();
-			getGesamtFahrten();
+			// getGesamtFahrten();
 			getPersonenAufBerg();
 			
 			cursorSetzen(hStdout, 0, 3); /* setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */
@@ -236,7 +244,8 @@ int main(int argc, char *argv[]) {
 				   	"Personen auf Berg:  %4d                  [P]:  1 Auto								\n"
 					"Gesamtfahrten heute: %4d															\n"
 					"...(T)urbo\n"
-					"...(P)ause"                                                
+					"...(P)ause\n"
+					"...(B)eenden"                                                
 					, zehnerkarten, schlangenlaenge_berg, tageskarten, anzahl_berg_zu_mitte, tag_gesamtfahrten, anzahl_B2, anzahl_R2, anzahl_mitte_zu_berg, anzahl_mitte_zu_tal, anzahl_B1, anzahl_R1
 					, anzahl_S1, anzahl_tal_zu_mitte, warteschlange_tal_index, uhrzeit.stunde, uhrzeit.minute, personen_auf_berg, tag_gesamtfahrten);
 						
@@ -433,13 +442,29 @@ void liftBetretenTal(int lift_in_station_tal_index)
 	}
 
 	int temp_skifahrer_liste_index; /* temporaerer index für den Skifahrer, der in dieser Funktion den Lift betritt */
-	warteschlange_tal_index--; /* um eins senken, weil index vorher bei leerer Stelle ist */ 
-	temp_skifahrer_liste_index = warteschlange_tal[warteschlange_tal_index].skifahrer_index;  /* Index von Skifahrer in Warteschlange holen */
+	temp_skifahrer_liste_index = warteschlange_tal[0].skifahrer_index;
 	skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = LIFT_MITTE_ZU_BERG;  /* position von Skifahrer updaten */
 	skifahrer_liste[temp_skifahrer_liste_index].uebrige_zeit_im_lift = 55;
-	lift_liste[lift_in_station_tal_index].skifahrer1 = skifahrer_liste[temp_skifahrer_liste_index]; /* skifahrer in die lift_liste schreiben */
+	warteschlange_tal[0] = (Warteschlange){0}; /* skifahrer aus warteschlange loeschen */
 
-	warteschlange_tal[warteschlange_tal_index] = (Warteschlange){0}; /* skifahrer aus warteschlange loeschen. Warteschlange_index hat jetzt wieder den vordersten leeren Punkt der Schlange */
+
+	int i;
+	i = 0;
+	while (1)
+	{
+		if (warteschlange_tal[i + 1].skifahrer_index == 0)
+		{
+			break; 
+		}
+		warteschlange_tal[i] = warteschlange_tal[i + 1];
+		i++;
+	}
+
+	warteschlange_tal_index--; /* um eins senken, weil damit index wieder bei leerer stelle ist */ 
+
+	// lift_liste[lift_in_station_tal_index].skifahrer1 = skifahrer_liste[temp_skifahrer_liste_index]; /* skifahrer in die lift_liste schreiben */
+
+	
 }
 
 void liftBetretenBerg(int lift_in_station_berg_index)
@@ -454,48 +479,49 @@ void liftBetretenBerg(int lift_in_station_berg_index)
 	temp_skifahrer_liste_index = warteschlange_berg[warteschlange_berg_index].skifahrer_index;  /* Index von Skifahrer in Warteschlange holen */
 	skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = LIFT_MITTE_ZU_TAL;  /* position von Skifahrer updaten */
 	skifahrer_liste[temp_skifahrer_liste_index].uebrige_zeit_im_lift = 55;
-	lift_liste[lift_in_station_berg_index].skifahrer1 = skifahrer_liste[temp_skifahrer_liste_index]; /* skifahrer in die lift_liste schreiben */
+	// lift_liste[lift_in_station_berg_index].skifahrer1 = skifahrer_liste[temp_skifahrer_liste_index]; /* skifahrer in die lift_liste schreiben */
 	warteschlange_berg[warteschlange_berg_index] = (Warteschlange){0}; /* skifahrer aus warteschlange loeschen. Warteschlange_index hat jetzt wieder den vordersten leeren Punkt der Schlange */
 }
 
-void liftVerlassenTal(int lift_in_station_tal_index)
-{
-	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); /* wird fuer cursorSetzen() benoetigt */
-	cursorSetzen(hStdout, 0, 1);
-	printf("index von werauchimmer grade liftVerlassenTal aufruft: %3d", lift_liste[lift_in_station_tal_index].skifahrer1.index);
+// void liftVerlassenTal(int lift_in_station_tal_index)
+// {
+	// HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE); /* wird fuer cursorSetzen() benoetigt */
+	// cursorSetzen(hStdout, 0, 1);
+	// printf("index von werauchimmer grade liftVerlassenTal aufruft: %3d", lift_liste[lift_in_station_tal_index].skifahrer1.index);
 	/* Ich weiss nicht, warum hier von Anfang an ein skifahrer mit Index 780 rein will. Bis ich das rausfinde muss ich einfach hoffen, dass Skifahrer 780 nie den Lift ins Tal nimmt */
-	if (lift_liste[lift_in_station_tal_index].skifahrer1.index == 780 || lift_liste[lift_in_station_tal_index].skifahrer1.index == 0 || lift_liste[lift_in_station_tal_index].skifahrer1.index == 9999) 
-	{
-		return;	 
-	}
+	// if (lift_liste[lift_in_station_tal_index].skifahrer1.index == 780 || lift_liste[lift_in_station_tal_index].skifahrer1.index == 0 || lift_liste[lift_in_station_tal_index].skifahrer1.index == 9999) 
+	// {
+	// 	return;	 
+	// }
 
-	int temp_skifahrer_liste_index; /* temporaerer index für den Skifahrer, der hier ankommt */
+	// int temp_skifahrer_liste_index; /* temporaerer index für den Skifahrer, der hier ankommt */
 	
-	temp_skifahrer_liste_index = lift_liste[lift_in_station_tal_index].skifahrer1.index; /* temporaerer Index ist Index von skifahrer1 aus dem Lift der aktuell oben ist. 
-																							 Wenn niemand da ist, defaultet der Wert zu 0. Das ist ein Problem */
-	lift_liste[lift_in_station_tal_index].skifahrer1 = (Skifahrer){0}; /* Skifahrer wird aus Lift entfernt */	
-	skifahrerEntscheidung(skifahrer_liste[temp_skifahrer_liste_index]);
+	// temp_skifahrer_liste_index = lift_liste[lift_in_station_tal_index].skifahrer1.index; /* temporaerer Index ist Index von skifahrer1 aus dem Lift der aktuell oben ist. 
+	// 																						 Wenn niemand da ist, defaultet der Wert zu 0. Das ist ein Problem */
+	// lift_liste[lift_in_station_tal_index].skifahrer1 = (Skifahrer){0}; /* Skifahrer wird aus Lift entfernt */	
+	// skifahrerEntscheidung(skifahrer_liste[temp_skifahrer_liste_index]);
 	/* TODO: Skifahrer müssen verschiedene Wege einschlagen können */
-}
+//}
 
 /* TODO: irgendwas dagegen machen, dass der standardwert für nicht zuweisbare ints 0 ist, weswegen skifahrer_liste[0] sich sofort hier hoch beamt */	
-void liftVerlassenBerg(int lift_in_station_berg_index)
-{
+// void liftVerlassenBerg(int lift_in_station_berg_index)
+// {
 	
-	if (lift_liste[lift_in_station_berg_index].skifahrer1.aktuelle_position == ABWESEND) {
-		return;	
-	}
-	int temp_skifahrer_liste_index; /* temporaerer index für den Skifahrer, der hier ankommt */
+	// if (lift_liste[lift_in_station_berg_index].skifahrer1.aktuelle_position == ABWESEND) {
+	// 	return;	
+	// }
+	// int temp_skifahrer_liste_index; /* temporaerer index für den Skifahrer, der hier ankommt */
 	
-	temp_skifahrer_liste_index = lift_liste[lift_in_station_berg_index].skifahrer1.index; /* temporaerer Index ist Index von skifahrer1 aus dem Lift der aktuell oben ist. 
-																							 Wenn niemand da ist, defaultet der Wert zu 0. Das ist ein Problem */
-	lift_liste[lift_in_station_berg_index].skifahrer1 = (Skifahrer){0}; /* Skifahrer wird aus Lift entfernt */
-	skifahrerEntscheidung(skifahrer_liste[temp_skifahrer_liste_index]);
+	// temp_skifahrer_liste_index = lift_liste[lift_in_station_berg_index].skifahrer1.index; /* temporaerer Index ist Index von skifahrer1 aus dem Lift der aktuell oben ist. 
+	// 																						 Wenn niemand da ist, defaultet der Wert zu 0. Das ist ein Problem */
+	// lift_liste[lift_in_station_berg_index].skifahrer1 = (Skifahrer){0}; /* Skifahrer wird aus Lift entfernt */
+	// skifahrerEntscheidung(skifahrer_liste[temp_skifahrer_liste_index]);
 	/* TODO: Skifahrer müssen verschiedene Wege einschlagen können */
-}
+// }
 
 void pisteBetreten(Skifahrer skifahrer, int piste)
 {
+	tag_gesamtfahrten++;
 	int temp_skifahrer_liste_index;
 	temp_skifahrer_liste_index = skifahrer.index;
 	skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = piste;	
@@ -535,6 +561,7 @@ void uebrigeZeitImLiftSenken()
 	{
 		if (skifahrer_liste[i].uebrige_zeit_im_lift == 0)
 		{
+			skifahrer_liste[i].uebrige_zeit_im_lift = 9999;
 			skifahrerEntscheidung(skifahrer_liste[i]);
 		} else {
 			skifahrer_liste[i].uebrige_zeit_im_lift--;
@@ -542,7 +569,7 @@ void uebrigeZeitImLiftSenken()
 	}
 }
 
-void SkifahrerListeMitDummysFuellen()
+void skifahrerListeMitDummysFuellen()
 {
 	int i;
 	i = 0;
@@ -558,21 +585,35 @@ void SkifahrerListeMitDummysFuellen()
 	}
 }
 
-void LiftListeMitDummysFuellen()
+void warteschlangenMitDummysFuellen()
 {
 	int i;
 	i = 0;
-	for (i; i <= 110; i++)
+	for (i; i <= 500; i++)
 	{
-		Skifahrer skifahrer;
-		lift_liste[i].skifahrer1.aktuelle_position = ABWESEND;
-		lift_liste[i].skifahrer1.ankunftsart = 1;
-		lift_liste[i].skifahrer1.gesamtfahrten = 0;
-		lift_liste[i].skifahrer1.index = 9999; /* Wert, der außerhalb der eigentlichen länge der Liste liegt, damit nicht irgendwie ausversehen drauf zugegriffen wird */
-		lift_liste[i].skifahrer1.uebrige_fahrten = 0;
-		lift_liste[i].skifahrer1.uebrige_zeit_auf_piste = 9999;
+		warteschlange_tal[i].skifahrer_index = 0;
+		warteschlange_tal[i].wartschlange_index = 0; /* Ich glaub der Wert kann raus */
+
+		warteschlange_berg[i].skifahrer_index = 0;
+		warteschlange_berg[i].wartschlange_index = 0;
 	}
 }
+
+// void LiftListeMitDummysFuellen()
+// {
+// 	int i;
+// 	i = 0;
+// 	for (i; i <= 110; i++)
+// 	{
+// 		Skifahrer skifahrer;
+// 		lift_liste[i].skifahrer1.aktuelle_position = ABWESEND;
+// 		lift_liste[i].skifahrer1.ankunftsart = 1;
+// 		lift_liste[i].skifahrer1.gesamtfahrten = 0;
+// 		lift_liste[i].skifahrer1.index = 9999; /* Wert, der außerhalb der eigentlichen länge der Liste liegt, damit nicht irgendwie ausversehen drauf zugegriffen wird */
+// 		lift_liste[i].skifahrer1.uebrige_fahrten = 0;
+// 		lift_liste[i].skifahrer1.uebrige_zeit_auf_piste = 9999;
+// 	}
+// }
 
 /* setzt Zahl auf 110, wenn sie -1 erreicht. Fuer Lift-loop benoetigt */
 int zurueckAuf110(int zahl){
@@ -792,18 +833,18 @@ void zaehlvariablenAufNullSetzen()
 
 void getPersonenAufBerg()
 {
-	int anwesend, i;
+	int abwesend, i;
 	i = 0;
-	anwesend = 0;
+	abwesend = 0;
 	while (i <= 2010)
 	{
-		if (skifahrer_liste[i].aktuelle_position != ABWESEND)
+		if (skifahrer_liste[i].aktuelle_position == ABWESEND)
 		{
-			anwesend++;
+			abwesend++;
 		}
 		i++;
 	}
-	personen_auf_berg = anwesend;
+	personen_auf_berg = 2010 - abwesend;
 }
 
 void mehrereSkifahrerErstellen(int neue_skifahrer_pro_minute)
