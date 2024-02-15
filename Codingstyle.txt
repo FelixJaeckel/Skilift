@@ -1,20 +1,14 @@
-
 funktionstyp funktionInCamelCase(parameter, parameter)
 {
 	Funktionsinhalt
 }
 
 
-if (Bedingung)
-{
+if (variable == bedingung){
 	...
-} 
-else if (Bedingung) 
-{
+} else if (Bedingung) {
 	...
-}
-else
-{
+} else {
 	...
 }
 
@@ -24,13 +18,40 @@ for (...)
 	...
 }
 
+
+switch (switchwert)
+{
+	case case_wert: ...; break;
+	case case_wert: ...; break;
+	default: ...; break;
+}
+ODER
+switch (switchwert)
+{
+	case case_wert:
+		...
+		...; break;
+	case case_wert:
+		...; break;
+	default:
+		...; break;
+}
+
+Wenn der Code für den Switch in einer Zeile ausgeführt werden kann, bleibt das alles auf der Zeile.
+Wenn man mehrere Zeilen braucht, wird das Ganze eingerückt.
+break kriegt keine eigene Zeile (nur in switch)
+
+
+
 IMMER KORREKT EINRÜCKEN! Wenn irgendwo eine geschweifte Klammer aufgemacht wird, ist danach alles einen Tab eingerückt. Sonst wird das
 alles extrem unübersichtlich. 
 
 variablen_in_snake_case
-Der Variablenname beschreibt, was die Variable darstellt. Keine Abkürzungen. 
+Der Variablenname beschreibt, was die Variable darstellt. Keine Abkürzungen. alles kleinbuchstaben
 
-Funktionsnamen beschreiben, was die Funktion macht. Wenn man einen Wert holt, heißt die Funktion getWert()
+funktionInCamelCase
+Funktionsnamen beschreiben, was die Funktion macht. Wenn man einen Wert holt, heißt die Funktion getWert().
+camelCase bedeutet am Anfang klein, dann jedes neue Wort mit einem Großbuchstaben anfangen
 
 Kommentare sind /* Kommentar */
 Kommentare zu einzelnen Zeilen fangen eine Leertaste hinter der Zeile an. Kommentare zu Funktionen bzw. zu mehreren Zeilen sind direkt drüber

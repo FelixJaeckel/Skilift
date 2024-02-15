@@ -401,7 +401,7 @@ void skifahrerEntscheidung(Skifahrer skifahrer)
 				} else if (r == 1){
 					warteschlangeBetretenTal(skifahrer); break;
 				} else if (r == 2){
-					warteschlangeBetretenBus(skifahrer);
+					warteschlangeBetretenBus(skifahrer); break;
 				}	
 			}
 		case PISTE_S1:
@@ -421,7 +421,7 @@ void skifahrerEntscheidung(Skifahrer skifahrer)
 				} else if (r == 1){
 					warteschlangeBetretenTal(skifahrer); break;
 				} else if (r == 2){
-					warteschlangeBetretenBus(skifahrer);
+					warteschlangeBetretenBus(skifahrer); break;
 				}	
 			}
 		case PISTE_B1:
@@ -441,7 +441,7 @@ void skifahrerEntscheidung(Skifahrer skifahrer)
 				} else if (r == 1){
 					warteschlangeBetretenTal(skifahrer); break;
 				} else if (r == 2){				
-					warteschlangeBetretenBus(skifahrer);
+					warteschlangeBetretenBus(skifahrer); break;
 				}	
 			}
 		case PISTE_R1:
@@ -461,7 +461,7 @@ void skifahrerEntscheidung(Skifahrer skifahrer)
 				} else if (r == 1){
 					warteschlangeBetretenTal(skifahrer); break;
 				} else if (r == 2){
-					warteschlangeBetretenBus(skifahrer);
+					warteschlangeBetretenBus(skifahrer); break;
 				}	
 			}
 		default: break;			
@@ -546,7 +546,7 @@ void liftBetretenTal(int lift_in_station_tal_index)
 	warteschlange_tal[0].warteschlange_index = 0; /* skifahrer aus warteschlange loeschen */
 
 
-
+	/* alle Skifahrer ruecken um eins in der Warteschlange vor */
 	i = 0;
 	while (1)
 	{
