@@ -406,7 +406,6 @@ void skifahrerEntscheidung(Skifahrer skifahrer)
 			} else if (r == 4){
 				pisteBetreten(skifahrer, Bistro); break;
 			}
-		
 		case Bistro:
 			r = rand() % 4;
 			if (r == 0){

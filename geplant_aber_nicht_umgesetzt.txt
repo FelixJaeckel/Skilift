@@ -1,0 +1,17 @@
+10er-Karten haben bis jetzt keinen Effekt. Man müsste skifahrer.uebrige_fahrten jedes mal wenn er sich anstellt oder einen Lift betritt (kommt auf's Selbe hinaus) um eins senken.
+Dann müsste man in skifahrerEntscheidung() eine Abfrage einbauen, dass Skifahrer mit uebrige_fahrten == 0 keine Warteschlangen mehr betreten können.
+
+Skifahrerniveau. Ein Wert in der Skifahrer-Struct. Bei der Erstellung kriegt jeder Skifahrer einen Wert von 0-2 zufällig zugeordnet. 0 = blau, 1 = rot, 2 = schwarz.
+Blaue skifahrer haben eine höhere Wahrscheinlichkeit für blau als für rot. Rote Skifahrer haben für blau und schwarz die gleiche Wahrscheinlichkeit aber die größte für rot. 
+Skifahrer mit schwarzem Niveau haben die kleinste WK für blau, eine größere für rot und die größte für schwarz. Das ganze würde auch in skifahrerEntscheidung() stattfinden. 
+Da das die Funktion ins absurde vergrößern und verspaghettien würde, sollte man vermutlich eine Hilfsfunktion für die Pistenauswahl bauen.
+
+Skifahrer die mit dem Bus gekommen sind, sind bis jetzt zu dumm, um garantiert nach Hause zu fahren. Der Plan: Skifahrer die mit dem Bus gekommen sind, werden gezählt. 
+Diese Variable/50 ergibt die Anzahl an Bussen, zu denen man spätestens den Berg verlassen sollte. Soll heißen 151 Skifahrer sind mit dem Bus angekommen, das heißt alle müssen beim viertletzten
+Bus an der Warteschlange sein. Die Skifahrer sind in dem Szenario omnipotent und wissen über so was Bescheid. Anhand der Anzahl Busse die noch übrig sind, kann die spätestmögliche Zeit ermittelt werden, 
+zu der die Fahrer unten sein müssen. Entweder nimmt man diese Zeit als neue Obergrenze für die getPistenZeit() Funktion, oder man sagt, dass es die Skifahrer in solchen zeitlich knappen 
+Situationen in der kürzesten zeit die Piste runterschaffen. Außerdem muss man die minimal benötigte Zeit berechnen, die man verbraucht, wenn man irgendwo in einen Lift steigt. Wenn das zu
+hoch ist, fährt der Fahrer direkt runter oder bleibt direkt im Tal.
+
+
+

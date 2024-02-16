@@ -140,6 +140,8 @@ int main(int argc, char *argv[]){
 	
 	loop_anzahl = 1; /* bestimmt, wie oft pro Sekunde der Hauptloop durchlaufen wird. Standardwert ist 1, Turbo ist 10, Pause ist 0 */
 	
+	busKommtAn(rand() % 50); /* Bus von 8:50 */
+
 	/* loop laeuft bis 1320 Minuten, also bis 22:00 Uhr */
 	while(minuten <= 1320)
 	{
@@ -183,13 +185,18 @@ int main(int argc, char *argv[]){
 			uebrigeZeitImLiftSenken(); 
 			uebrigeZeitAufPisteSenken();
 
-			for (j = 0; j < 6; j++)
+			/* Lift laeuft nur bis 20 Uhr */
+			if (minuten <= 1200)
 			{
-				liftBetretenTal();
-				liftBetretenBerg();
-				liftBetretenMitteHoch();
-				liftBetretenMitteRunter();	
+				for (j = 0; j < 6; j++)
+				{
+					liftBetretenTal();
+					liftBetretenBerg();
+					liftBetretenMitteHoch();
+					liftBetretenMitteRunter();	
+				}
 			}
+
 			
 			positionenChecken();
 			getPersonenAufBerg();
@@ -282,7 +289,7 @@ void skipistenPrint()
 	printf("Skifahrten: %4d                                 /        /     |					\n", tag_gesamtfahrten);
 	printf("                                                -        /      |					\n");
 	printf("                                               /        |       |					\n");
-	printf("Mitte-runter Schlange: %4d          B2: %4d   R2: %4d /       /						\n", schlangenlaenge_mitte_zu_tal, anzahl_B2, anzahl_R2);
+	printf("Mitte-runter Schlange: %4d          B2: %4d   R2: %4d /      /						\n", schlangenlaenge_mitte_zu_tal, anzahl_B2, anzahl_R2);
 	printf("                                             /        /       /						\n");
 	printf("                                         ----        |       /						\n");
 	printf("                                        /           /       /       Lift auf: %4d   \n", anzahl_mitte_zu_berg);
@@ -311,7 +318,7 @@ void neuenSkifahrerErstellen(int ankunftsart){
 	
 
 	skifahrer.aktuelle_position = SCHLANGE_TAL;	/* ein frisch erstellter Skifahrer wird sich immer zuerst im Tal anstellen */
-	skifahrer.ankunftsart = ankunftsart;	/* TODO: verschiedene ankunftsarten impementieren */
+	skifahrer.ankunftsart = ankunftsart;	
 	skifahrer.gesamtfahrten = 0;  /* Gesamtfahrten am Anfang bei 0 */
 	skifahrer.uebrige_zeit_auf_piste = 9999;  /* startet bei 9999 (0 waere problematisch, siehe uebriegeZeitAufPisteSenken()), kriegt eigentliche Zeit, wenn Fahrer Piste betritt */
 	skifahrer.index = skifahrer_liste_index;  /* Index des Skifahrers ist auch index in der skifahrer_liste */
@@ -337,7 +344,7 @@ void neuenSkifahrerErstellen(int ankunftsart){
 
 	/* Platz in Warteschlange wird ein skifahrer und der entsprechende Eintrag im Warteschlangen-Array jeweils per index zugeordnet */
 	schlangenplatz.skifahrer_index = skifahrer.index;  
-	schlangenplatz.warteschlange_index = warteschlange_tal_index; /* an dem Punkt bin ich mir unsicher, wozu ich Ueberhaupt einen indexwert beim schlangenplatz erstellt hab */
+	schlangenplatz.warteschlange_index = warteschlange_tal_index; 
 	warteschlange_tal[warteschlange_tal_index] = schlangenplatz;
 	skifahrer_liste_index++;  /* skifahrer listen index um eins erhoehen, damit der naechste skifahrer dorthin geschrieben wird */
 	warteschlange_tal_index++;  /* warteschlangen index erhoehen */

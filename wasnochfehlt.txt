@@ -1,9 +1,4 @@
 Was noch fehlt:
 1. Wenn 10er Karte alle ist, geht Skifahrer nach Hause (nicht schwer, aber vermutlich nervig zu programmieren. Fehler können sich sehr einfach einschleichen)
-3. Parkplatz (vermutlich leicht)
-4. Bus der vor um 9 ankommt mit einbeziehen (leicht)
-5. Skifahrer nach 22 Uhr mit "Schneemobilen" von der Piste tilgen (leicht)
 6. Skifahrer sind schlau genug, noch vor dem letzten Bus nach Hause zu fahren (schwer)
-7. Anzahl Skifahrer die ankommen entspricht Aufgabenstellung (sehr leicht)
 8. Skifahhrerniveau (optional. nicht schwer, aber nervig)
-9. Bistro (optional. sollte nicht schwer sein, schon etwas schreibarbeit)
