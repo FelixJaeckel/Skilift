@@ -134,8 +134,8 @@ int main(int argc, char *argv[]) {
 	zehnerkarten = 0;
 	tag_gesamtfahrten = 0;
 	neue_skifahrer_pro_minute = 50;
-	
 	zaehlvariablenAufNullSetzen(); /* initalisiert alle Zaehler-Variablen zum ersten Mal, auch wenn der Hauptnutzen der Funktion in positionenChecken() liegt */
+	
 	skifahrerListeMitDummysFuellen();
 	warteschlangenMitDummysFuellen();
 
@@ -181,7 +181,7 @@ int main(int argc, char *argv[]) {
 	/* loop laeuft bis 1320 Minuten, also bis 22:00 Uhr */
 	while(minuten <= 1320)
 	{
-		for (i = 0; i < loop_anzahl; i++) /* Je nach Wert von loop_anzahl ist entweder normales Tempo, Turbo oder Pause */
+		for (i = 0; i < loop_anzahl; i++)
 		{	
 			if (uhrzeit.minute == 10 ||uhrzeit.minute == 30 ||uhrzeit.minute == 50){
 				busKommtAn();
