@@ -82,13 +82,8 @@ void busKommtAn();
 void warteschlangeBetretenBus(Skifahrer);
 void busFaehrtAb();
 
-<<<<<<< HEAD
 void liftBetretenTal();
 void liftBetretenBerg();
-=======
-void liftBetretenTal(int);
-void liftBetretenBerg(int);
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 void uebrigeZeitImLiftSenken();
 
 void warteschlangeBetretenTal(Skifahrer);
@@ -122,10 +117,6 @@ int zehnerkarten, tageskarten,
 	B2randZeit, B2feierabendzeit,  B2ungewoehnlichhoch,  B2reverseminute,
 	R1randZeit, R1feierabendzeit,  R1ungewoehnlichhoch,  R1reverseminute,
 	R2randZeit, R2feierabendzeit,  R2ungewoehnlichhoch,  R2reverseminute;
-<<<<<<< HEAD
-=======
-	int i, j, lift_in_station_tal_index, lift_in_station_mitte_hoch_index, lift_in_station_berg_index, lift_in_station_mitte_runter_index;
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	char input;
 
 Warteschlange warteschlange_tal[5000];  
@@ -135,11 +126,7 @@ Skifahrer skifahrer_liste[5000];
 Uhrzeit uhrzeit;
 
 int main(int argc, char *argv[]) {
-<<<<<<< HEAD
 	int i, j;
-=======
-	
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	skifahrer_liste_index = 1; /* warum bei 1 starten? Weil 0 in c auch ein Standardwert fuer nicht definierte Werte ist und ich will eventuelle Ueberschneidungen damit vermeiden */
 	warteschlange_tal_index = 0;
 	warteschlange_berg_index = 0;
@@ -149,14 +136,6 @@ int main(int argc, char *argv[]) {
 	neue_skifahrer_pro_minute = 50;
 	zaehlvariablenAufNullSetzen(); /* initalisiert alle Zaehler-Variablen zum ersten Mal, auch wenn der Hauptnutzen der Funktion in positionenChecken() liegt */
 	
-<<<<<<< HEAD
-=======
-	lift_in_station_tal_index 		   = 0;
-	lift_in_station_mitte_hoch_index   = 27;
-	lift_in_station_berg_index 		   = 55;
-	lift_in_station_mitte_runter_index = 82;
-	
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	skifahrerListeMitDummysFuellen();
 	warteschlangenMitDummysFuellen();
 
@@ -215,26 +194,9 @@ int main(int argc, char *argv[]) {
 			for (j = 0; j < 6; j++)
 			{
 				
-<<<<<<< HEAD
 				liftBetretenTal();
 				liftBetretenBerg();
 				uebrigeZeitImLiftSenken();	
-=======
-				liftBetretenTal(lift_in_station_tal_index);
-				liftBetretenBerg(lift_in_station_berg_index);
-				uebrigeZeitImLiftSenken();
-				
-				/* Liftbewegung */
-				lift_in_station_tal_index--;
-				lift_in_station_mitte_hoch_index--;
-				lift_in_station_berg_index--;
-				lift_in_station_mitte_runter_index--;
-				
-				lift_in_station_tal_index 		   = zurueckAuf110(lift_in_station_tal_index);
-				lift_in_station_mitte_hoch_index   = zurueckAuf110(lift_in_station_mitte_hoch_index);
-				lift_in_station_berg_index 		   = zurueckAuf110(lift_in_station_berg_index);
-				lift_in_station_mitte_runter_index = zurueckAuf110(lift_in_station_mitte_runter_index);			
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 			}
 			
 			uebrigeZeitAufPisteSenken();
@@ -265,14 +227,6 @@ int main(int argc, char *argv[]) {
 			printf("...(T)urbo\n");
 			printf("...(P)ause\n");
 			printf("...(B)eenden");                                                 
-<<<<<<< HEAD
-
-=======
-					
-						
-			
-/*		uhrzeitAusgeben(uhrzeit);  uhrzeit hat ein paar Eigenheiten, weswegen sie eine extrafunktion zum printen kriegt */           
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 			
 			minuten++; /* eine minute vergeht */
 			uhrzeitAnpassen(minuten); /* minuten werden in uhrzeitformat umgewandelt */			
@@ -348,13 +302,8 @@ int main(int argc, char *argv[]) {
 
 void neuenSkifahrerErstellen(int ankunftsart){
 	Skifahrer skifahrer; /* Skifahrerobjekt erstellen */
-<<<<<<< HEAD
 	Warteschlange schlangenplatz; /* Platz des Skifahrers in der Warteschlange erstellen */
 	int r; 
-=======
-	int r; 
-	Warteschlange schlangenplatz; /* Platz des Skifahrers in der Warteschlange erstellen */
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	
 	skifahrer.aktuelle_position = SCHLANGE_TAL;	/* ein frisch erstellter Skifahrer wird sich immer zuerst im Tal anstellen */
 	skifahrer.ankunftsart = ankunftsart;	/* TODO: verschiedene ankunftsarten impementieren */
@@ -388,10 +337,6 @@ void neuenSkifahrerErstellen(int ankunftsart){
 void skifahrerEntscheidung(Skifahrer skifahrer)
 {	
 	int r, temp_skifahrer_liste_index;
-<<<<<<< HEAD
-
-=======
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	temp_skifahrer_liste_index = skifahrer.index;
 	if (skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position > 114)
 	{
@@ -420,12 +365,7 @@ void skifahrerEntscheidung(Skifahrer skifahrer)
 				} else if (r == 1){
 					warteschlangeBetretenTal(skifahrer); break;
 				}				
-<<<<<<< HEAD
 			} else if (skifahrer_liste[temp_skifahrer_liste_index].ankunftsart == BUS){
-=======
-			} else if (skifahrer_liste[temp_skifahrer_liste_index].ankunftsart == BUS)
-			{
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 				r = rand() % 3;
 				if (r == 0){
 					skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = ABWESEND; break;
@@ -444,12 +384,7 @@ void skifahrerEntscheidung(Skifahrer skifahrer)
 				} else if (r == 1){
 					warteschlangeBetretenTal(skifahrer); break;
 				}				
-<<<<<<< HEAD
 			} else if (skifahrer_liste[temp_skifahrer_liste_index].ankunftsart == BUS){
-=======
-			} else if (skifahrer_liste[temp_skifahrer_liste_index].ankunftsart == BUS)
-			{
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 				r = rand() % 3;
 				if (r == 0){
 					skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = ABWESEND; break;
@@ -468,12 +403,7 @@ void skifahrerEntscheidung(Skifahrer skifahrer)
 				} else if (r == 1){
 					warteschlangeBetretenTal(skifahrer); break;
 				}				
-<<<<<<< HEAD
 			} else if (skifahrer_liste[temp_skifahrer_liste_index].ankunftsart == BUS){
-=======
-			} else if (skifahrer_liste[temp_skifahrer_liste_index].ankunftsart == BUS)
-			{
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 				r = rand() % 3;
 				if (r == 0){
 					skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = ABWESEND; break;
@@ -492,12 +422,7 @@ void skifahrerEntscheidung(Skifahrer skifahrer)
 				} else if (r == 1){
 					warteschlangeBetretenTal(skifahrer); break;
 				}				
-<<<<<<< HEAD
-			} else if (skifahrer_liste[temp_skifahrer_liste_index].ankunftsart == BUS){
-=======
-			} else if (skifahrer_liste[temp_skifahrer_liste_index].ankunftsart == BUS)
-			{
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
+			} else if (skifahrer_liste[temp_skifahrer_liste_index].ankunftsart == BUS) {
 				r = rand() % 3;
 				if (r == 0){
 					skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = ABWESEND; break;
@@ -515,10 +440,6 @@ void skifahrerEntscheidung(Skifahrer skifahrer)
 void busKommtAn()
 {
 	int skifahrer_im_bus;
-<<<<<<< HEAD
-
-=======
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	skifahrer_im_bus = rand() % 51;
 	for (; skifahrer_im_bus > 0; skifahrer_im_bus--)
 	{
@@ -530,10 +451,6 @@ void busKommtAn()
 void warteschlangeBetretenBus(Skifahrer skifahrer)
 {
 	int temp_skifahrer_liste_index;
-<<<<<<< HEAD
-
-=======
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	temp_skifahrer_liste_index = skifahrer.index;
 	warteschlange_bus[warteschlange_bus_index].skifahrer_index = temp_skifahrer_liste_index;
 	skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = SCHLANGE_BUS;
@@ -544,10 +461,6 @@ void warteschlangeBetretenBus(Skifahrer skifahrer)
 void busFaehrtAb()
 {
 	int i, temp_skifahrer_liste_index;
-<<<<<<< HEAD
-
-=======
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	i = 0;
 	for (; i<= 50; i++)
 	{
@@ -566,10 +479,6 @@ void busFaehrtAb()
 void warteschlangeBetretenTal(Skifahrer skifahrer)
 {
 	int temp_skifahrer_liste_index;
-<<<<<<< HEAD
-
-=======
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	temp_skifahrer_liste_index = skifahrer.index;
 	warteschlange_tal[warteschlange_tal_index].skifahrer_index = skifahrer.index;
 	skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = SCHLANGE_TAL;
@@ -581,10 +490,6 @@ void warteschlangeBetretenTal(Skifahrer skifahrer)
 void warteschlangeBetretenBerg(Skifahrer skifahrer)
 {
 	int temp_skifahrer_liste_index;
-<<<<<<< HEAD
-
-=======
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	temp_skifahrer_liste_index = skifahrer.index;
 	warteschlange_berg[warteschlange_berg_index].skifahrer_index = skifahrer.index;
 	skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = SCHLANGE_BERG;
@@ -593,11 +498,7 @@ void warteschlangeBetretenBerg(Skifahrer skifahrer)
 	warteschlange_berg_index++;
 }
 
-<<<<<<< HEAD
 void liftBetretenTal()
-=======
-void liftBetretenTal(int lift_in_station_tal_index)
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 {	
 	int temp_skifahrer_liste_index, i; /* temporaerer index fuer den Skifahrer, der in dieser Funktion den Lift betritt */
 	
@@ -627,16 +528,10 @@ void liftBetretenTal(int lift_in_station_tal_index)
 	warteschlange_tal_index--; /* um eins senken, weil damit index wieder bei leerer stelle ist */ 
 }
 
-<<<<<<< HEAD
 void liftBetretenBerg()
 {	
 	int temp_skifahrer_liste_index; /* temporaerer index fuer den Skifahrer, der in dieser Funktion den Lift betritt */
 
-=======
-void liftBetretenBerg(int lift_in_station_berg_index)
-{	
-	int temp_skifahrer_liste_index; /* temporaerer index fuer den Skifahrer, der in dieser Funktion den Lift betritt */
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	if (warteschlange_berg_index == 0)
 	{
 		return;
@@ -653,10 +548,6 @@ void liftBetretenBerg(int lift_in_station_berg_index)
 void pisteBetreten(Skifahrer skifahrer, int piste)
 {
 	int temp_skifahrer_liste_index;
-<<<<<<< HEAD
-
-=======
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	tag_gesamtfahrten++;
 	temp_skifahrer_liste_index = skifahrer.index;
 	skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = piste;	
@@ -677,10 +568,6 @@ void pisteBetreten(Skifahrer skifahrer, int piste)
 void uebrigeZeitAufPisteSenken()
 {
 	int i;
-<<<<<<< HEAD
-
-=======
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	for (i = 0; i <= 5000; i++)
 	{
 		if(skifahrer_liste[i].uebrige_zeit_auf_piste == 0)
@@ -695,10 +582,6 @@ void uebrigeZeitAufPisteSenken()
 void uebrigeZeitImLiftSenken()
 {
 	int i;
-<<<<<<< HEAD
-
-=======
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	i = 0;
 	for (; i <= 5000; i++)
 	{
@@ -715,10 +598,6 @@ void uebrigeZeitImLiftSenken()
 void skifahrerListeMitDummysFuellen()
 {
 	int i;
-<<<<<<< HEAD
-
-=======
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	i = 0;
 	for (; i <= 5000; i++)
 	{
@@ -734,10 +613,6 @@ void skifahrerListeMitDummysFuellen()
 void warteschlangenMitDummysFuellen()
 {
 	int i;
-<<<<<<< HEAD
-
-=======
->>>>>>> 671202fbd7de8b3ab65152b22576031319b1f5e9
 	i = 0;
 	for (; i <= 5000; i++)
 	{

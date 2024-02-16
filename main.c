@@ -193,7 +193,6 @@ int main(int argc, char *argv[]) {
 			mehrereSkifahrerErstellen(neue_skifahrer_pro_minute);
 			for (j = 0; j < 6; j++)
 			{
-				
 				liftBetretenTal();
 				liftBetretenBerg();
 				uebrigeZeitImLiftSenken();	
@@ -203,25 +202,25 @@ int main(int argc, char *argv[]) {
 			positionenChecken();
 			getPersonenAufBerg();
 			
-			printf("\033[0;2H"); /*  setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */ 
-			printf("\n10er-Karten:  %3d                                   ___Bergstation Schlange: %d	\n", zehnerkarten, schlangenlaenge_berg);
-			printf("Tageskarten:  %3d                                   /        |    |  Lift ab: %d 	\n", tageskarten, anzahl_berg_zu_mitte);
+			printf("\033[0;28H"); /* setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */ 
+			printf("\n10er-Karten:  %4d                                   ___Bergstation Schlange: %4d	\n", zehnerkarten, schlangenlaenge_berg);
+			printf("Tageskarten:  %4d                                   /        |    |  Lift ab: %4d 	\n", tageskarten, anzahl_berg_zu_mitte);
 			printf("Skifahrten:   %4d                                 /        /     |					\n", tag_gesamtfahrten);
 			printf("                                                -        /      |					\n");
 			printf("                                               /        |       |					\n");
-			printf("Lift M<>B:  22                               B2: %3d   R2: %3d /					\n", anzahl_B2, anzahl_R2);
+			printf("Mittelstation hoch Schlange: 22               B2: %4d   R2: %4d /					\n", anzahl_B2, anzahl_R2);
 			printf("                                             /        /       /						\n");
 			printf("                                         ----        |       /						\n");
-			printf("                                        /           /       /       Lift auf:  %3d  \n", anzahl_mitte_zu_berg);
+			printf("                                        /           /       /       Lift auf:  %4d  \n", anzahl_mitte_zu_berg);
 			printf("                                        Mittelstation      |						\n");
-			printf("                                   _____Bistro:  7        /         Lift ab:   %3d \n", anzahl_mitte_zu_tal);
+			printf("                                   _____Bistro:  7        /         Lift ab:   %4d \n", anzahl_mitte_zu_tal);
 			printf("                                  /       \\             |							\n");
 			printf("                                  \\        |           /							\n");
-			printf("Lift T<>M:  14                   B1:  %3d    R1: %3d   /  S1:  %3d					\n", anzahl_B1, anzahl_R1, anzahl_S1);
+			printf("Mittelstation hoch Schlange: 14  B1:  %4d    R1: %4d   /  S1:  %4d					\n", anzahl_B1, anzahl_R1, anzahl_S1);
 			printf("                                   \\        \\       /								\n");
-			printf("                                    \\       /       /           Lift auf:  %3d		\n", anzahl_tal_zu_mitte);
+			printf("                                    \\       /       /           Lift auf:  %4d		\n", anzahl_tal_zu_mitte);
 			printf("                                     ----Talstation Schlange: %4d					\n", schlangenlaenge_tal);
-			printf("%02d:%02d Uhr                                 (H): %3d								\n", uhrzeit.stunde, uhrzeit.minute, schlangenlaenge_bus);
+			printf("%02d:%02d Uhr                                 (H): %4d								\n", uhrzeit.stunde, uhrzeit.minute, schlangenlaenge_bus);
 			printf("Personen auf Berg:  %4d                  [P]:  1 Auto								\n", personen_auf_berg);
 			printf("Gesamtfahrten heute: %4d															\n", tag_gesamtfahrten);
 			printf("...(T)urbo\n");
@@ -505,51 +504,72 @@ void warteschlangeBetretenBerg(Skifahrer skifahrer)
 	warteschlange_berg_index++;
 }
 
+/* bis zu 4 Skifahrer betrteten Lift im Tal */
 void liftBetretenTal()
 {	
-	int temp_skifahrer_liste_index, i; /* temporaerer index fuer den Skifahrer, der in dieser Funktion den Lift betritt */
-	
-	if (warteschlange_tal_index == 0)
-	{
-		return;
-	}
-	
-	temp_skifahrer_liste_index = warteschlange_tal[0].skifahrer_index;
-	skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = LIFT_MITTE_ZU_BERG;  /* position von Skifahrer updaten */
-	skifahrer_liste[temp_skifahrer_liste_index].uebrige_zeit_im_lift = 55;
-	warteschlange_tal[0].skifahrer_index = 0; /* skifahrer aus warteschlange loeschen */
-	warteschlange_tal[0].warteschlange_index = 0; /* skifahrer aus warteschlange loeschen */
-
-	/* alle Skifahrer ruecken um eins in der Warteschlange vor */
-	i = 0;
-	while (1)
-	{
-		if (warteschlange_tal[i + 1].skifahrer_index == 0)
+	int temp_skifahrer_liste_index, i, j; /* temporaerer index fuer den Skifahrer, der in dieser Funktion den Lift betritt */
+	j = 0;
+	for (; j <= 3; j++)
+	{	
+		if (warteschlange_tal_index == 0)
 		{
-			break; 
+			return;
 		}
-		warteschlange_tal[i] = warteschlange_tal[i + 1];
-		i++;
-	}
+		
+		temp_skifahrer_liste_index = warteschlange_tal[0].skifahrer_index;
+		skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = LIFT_MITTE_ZU_BERG;  /* position von Skifahrer updaten */
+		skifahrer_liste[temp_skifahrer_liste_index].uebrige_zeit_im_lift = 55;
+		warteschlange_tal[0].skifahrer_index = 0; /* skifahrer aus warteschlange loeschen */
+		warteschlange_tal[0].warteschlange_index = 0; /* skifahrer aus warteschlange loeschen */
 
-	warteschlange_tal_index--; /* um eins senken, weil damit index wieder bei leerer stelle ist */ 
+		/* alle Skifahrer ruecken um eins in der Warteschlange vor */
+		i = 0;
+		while (1)
+		{
+			if (warteschlange_tal[i + 1].skifahrer_index == 0)
+			{
+				break; 
+			}
+			warteschlange_tal[i] = warteschlange_tal[i + 1];
+			i++;
+		}
+		
+		warteschlange_tal_index--; /* um eins senken, weil damit index wieder bei leerer stelle ist */		
+	}
+ 
 }
 
 void liftBetretenBerg()
 {	
-	int temp_skifahrer_liste_index; /* temporaerer index fuer den Skifahrer, der in dieser Funktion den Lift betritt */
-
-	if (warteschlange_berg_index == 0)
+	int temp_skifahrer_liste_index, i, j; /* temporaerer index fuer den Skifahrer, der in dieser Funktion den Lift betritt */
+	j = 0;
+	for (; j <= 3; j++)
 	{
-		return;
-	}
+		if (warteschlange_berg_index == 0)
+		{
+			return;
+		}
 
-	warteschlange_berg_index--; /* um eins senken, weil index vorher bei leerer Stelle ist */ 
-	temp_skifahrer_liste_index = warteschlange_berg[warteschlange_berg_index].skifahrer_index;  /* Index von Skifahrer in Warteschlange holen */
-	skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = LIFT_MITTE_ZU_TAL;  /* position von Skifahrer updaten */
-	skifahrer_liste[temp_skifahrer_liste_index].uebrige_zeit_im_lift = 55;
-	warteschlange_berg[warteschlange_berg_index].skifahrer_index = 0; /* skifahrer aus warteschlange loeschen. Warteschlange_index hat jetzt wieder den vordersten leeren Punkt der Schlange */
-	warteschlange_berg[warteschlange_berg_index].warteschlange_index = 0; /* skifahrer aus warteschlange loeschen. Warteschlange_index hat jetzt wieder den vordersten leeren Punkt der Schlange */
+		temp_skifahrer_liste_index = warteschlange_berg[0].skifahrer_index;
+		skifahrer_liste[temp_skifahrer_liste_index].aktuelle_position = LIFT_MITTE_ZU_TAL;  /* position von Skifahrer updaten */
+		skifahrer_liste[temp_skifahrer_liste_index].uebrige_zeit_im_lift = 55;
+		warteschlange_berg[0].skifahrer_index = 0; /* skifahrer aus warteschlange loeschen */
+		warteschlange_berg[0].warteschlange_index = 0; /* skifahrer aus warteschlange loeschen */
+
+		/* alle Skifahrer ruecken um eins in der Warteschlange vor */
+		i = 0;
+		while (1)
+		{
+			if (warteschlange_berg[i + 1].skifahrer_index == 0)
+			{
+				break; 
+			}
+			warteschlange_berg[i] = warteschlange_berg[i + 1];
+			i++;
+		}
+
+		warteschlange_berg_index--;
+	}
 }
 
 void pisteBetreten(Skifahrer skifahrer, int piste)
