@@ -1,6 +1,5 @@
 Was noch fehlt:
 1. Wenn 10er Karte alle ist, geht Skifahrer nach Hause (nicht schwer, aber vermutlich nervig zu programmieren. Fehler können sich sehr einfach einschleichen)
-2. Darstellung wenn Bus kommt, wartet und abfährt. (sollte einfach sein)
 3. Parkplatz (vermutlich leicht)
 4. Bus der vor um 9 ankommt mit einbeziehen (leicht)
 5. Skifahrer nach 22 Uhr mit "Schneemobilen" von der Piste tilgen (leicht)

@@ -276,7 +276,7 @@ void pistenWerteDefinieren()
 /* Stellt den Berg und die Anzahl Skifahrer anb allen Positionen dar */
 void skipistenPrint()
 {
-	printf("\e[1;1H\e[2J");
+	printf("\033[1;1H\033[2J");
 	printf("\033[0;0H"); /* setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */ 
 	printf("\n10er-Karten: %4d                                   ___Bergstation Schlange: %4d	\n", zehnerkarten, schlangenlaenge_berg);
 	printf("Tageskarten: %4d                                 /        |    |  Lift ab: %4d 	\n", tageskarten, anzahl_berg_zu_mitte);
