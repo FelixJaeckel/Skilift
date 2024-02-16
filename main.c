@@ -275,7 +275,7 @@ void allgemeineWerteDefinieren()
 /* Stellt den Berg und die Anzahl Skifahrer an allen Positionen dar */
 void skipistenPrint()
 {
-	/*printf("\033[1;1H\033[2J");*/
+	printf("\033[1;1H\033[2J");
 	printf("\033[0;0H"); /* setzt Cursor an den Anfang, damit Ausgabe scheinbar konstant bleibt */ 
 	printf("\n10er-Karten: %4d                                   ___Bergstation Schlange: %4d	\n", zehnerkarten, schlangenlaenge_berg);
 	printf("Tageskarten: %4d                                 /        |    |  Lift ab:  %4d 	\n", tageskarten, anzahl_berg_zu_mitte);
@@ -596,8 +596,7 @@ void liftBetretenMitteHoch()
 	{
 		if (skifahrer_liste[k].uebrige_zeit_im_lift == 0 && skifahrer_liste[k].aktuelle_position == LIFT_TAL_ZU_MITTE){
 			skifahrer_in_lift++;
-		}
-		
+		}		
 	}
 
 	j = 0;
